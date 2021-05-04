@@ -51,7 +51,29 @@ class Empleado : Persona{
     int get_id_puesto(){
         return id_puesto;
     }
+    //metodos set de la clase persona
 
+    void set_Nombres(string nombre){
+        nombres = nombre;
+    }
+
+    void set_Apellidos(string apellido){
+        apellidos = apellido;
+    }
+
+    void set_Telefono(string _telefono){
+        telefono = _telefono;
+    }
+
+    void set_Fecha_ingreso(string _fecha_ingreso){
+        fecha_ingreso = _fecha_ingreso;
+    }
+
+    void set_Genero(char _genero){
+        genero = _genero;
+    }
+    
+    //metodos get de la clase persona 
      string get_Nombres(){
         return nombres;
     }
