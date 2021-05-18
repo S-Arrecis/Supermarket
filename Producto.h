@@ -83,4 +83,38 @@ public:
     public: string get_Fecha_Ingreso(){
         return fecha_ingreso;
     }
+
+     public: void menu(){
+        int opc;
+
+        do{
+            cout<<"\n\t\t.:PRODUCTOS:.\n\n"<<endl;
+            cout<<"1. Editar Producto."<<endl;
+            cout<<"2. Eliminar Producto."<<endl;
+            cout<<"3. Ver Producto."<<endl;
+            cout<<"4. Insertar Producto."<<endl;
+            cout<<"5.  <-----< Regresar."<<endl;
+            cout<<"Digite un opcion: "; cin>> opc;
+
+            switch(opc){
+                
+                case 1: 
+                break;
+                
+                case 2: 
+                break;
+                
+                case 3: 
+                break;
+                
+                case 4: 
+                break;
+                
+                case 5: //llamamos al main para regresar
+                break;
+                default: cout<<" (TwT) Opcion no valida intenta otra vez.. (TwT)"<<endl; 
+            }
+
+        }while(opc!=5);
+    }
 };

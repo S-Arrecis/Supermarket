@@ -26,11 +26,12 @@ class Marca{
         int opc;
 
         do{
-            cout<<"\n\t\t.:EDITAR MARCA:.\n\n"<<endl;
+            cout<<"\n\t\t.:MARCAS:.\n\n"<<endl;
             cout<<"1. Editar Marca."<<endl;
             cout<<"2. Eliminar Marca."<<endl;
             cout<<"3. Ver Marcas."<<endl;
-            cout<<"4.  <-----< Regresar."<<endl;
+            cout<<"4. Insertar Marca."<<endl;
+            cout<<"5.  <-----< Regresar."<<endl;
             cout<<"Digite un opcion: "; cin>> opc;
 
             switch(opc){
@@ -43,7 +44,10 @@ class Marca{
                 case 3: 
                 break;
                 
-                case 4: //madamos a llamar al main o bien ejecutnado de nuevo
+                case 4:
+                break;
+
+                case 5: //madamos a llamar al main o bien ejecutamos de nuevo
                 break;
                 
                 default: cout<<" (TwT) Opcion no valida intenta otra vez.. (TwT)"<<endl; 
@@ -51,5 +55,5 @@ class Marca{
 
         }while(opc!=4);
     }
-    
+
 };
