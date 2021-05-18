@@ -52,6 +52,29 @@ class Empleado :public Persona{
         return id_puesto;
     }
 
+    public: void menu(){
+        int opc;
+
+        do{
+            cout<<"\n\t\t.:EMPLEADO:.\n\n"<<endl;
+            cout<<"1. Editar Empleado."<<endl;
+            cout<<"2. Eliminar Empleado."<<endl;
+            cout<<"3. Ver Empleado."<<endl;
+            cout<<"4. Insertar Empleado."<<endl;
+            cout<<"5.  <-----< Regresar."<<endl;
+            cout<<"Digite un opcion: "; cin>> opc;
+
+            switch(opc){
+                case 1: break;
+                case 2: break;
+                case 3: break;
+                case 4: break;
+                case 5: break;
+                default: cout<<" (TwT) Opcion no valida intenta otra vez.. (TwT)"<<endl; 
+            }
+
+        }while(opc!=4);
+    }
 
 
 };
@@ -85,6 +108,30 @@ class Cliente:public Persona{
     }
     string get_Correo(){
         return correo;
+    }
+
+    public: void menu(){
+        int opc;
+
+        do{
+            cout<<"\n\t\t.:CLIENTES:.\n\n"<<endl;
+            cout<<"1. Editar Cliente."<<endl;
+            cout<<"2. Eliminar Cliente."<<endl;
+            cout<<"3. Ver Cliente."<<endl;
+            cout<<"4. Insertar Cliente."<<endl;
+            cout<<"5.  <-----< Regresar."<<endl;
+            cout<<"Digite un opcion: "; cin>> opc;
+
+            switch(opc){
+                case 1: break;
+                case 2: break;
+                case 3: break;
+                case 4: break;
+                case 5: break;
+                default: cout<<" (TwT) Opcion no valida intenta otra vez.. (TwT)"<<endl; 
+            }
+
+        }while(opc!=4);
     }
 
 };
