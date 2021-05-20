@@ -11,9 +11,49 @@
 using namespace std;
 
 int main(){
-    cout << "\n\t\t.:BIENVENIDO:. \n";
+    int op, op1; // variables para las opciones de los switch
   
-    return 0;
+    cout << "\n\t     .:BIENVENIDO:. \n\n";
+ 
+
+	cout << "*****************MENU******************" << endl << endl;
+	cout << "SELECCIONE LA TABLA QUE DESEA EDITAR:" << endl << endl;
+	cout << "Marcas...............................1" << endl;
+	cout << "Clientes............................." << endl;
+	cout << "ETC.................................." << endl;
+	cout << "Salir................................" << endl << endl;
+	cin >> op;
+	switch (op) {
+
+	case 1: system("cls");
+
+		cout << "*************Editar_Marcas**************" << endl << endl;
+		cout << "SELECCIONE LA OPERACION QUE DESEA REALIZAR..." << endl << endl;
+		cout << "Crear registro.......................1" << endl;
+		cout << "Leer registro........................2" << endl;
+		cout << "Actualizar registro..................3" << endl;
+		cout << "Borrar registro......................4" << endl;
+		cout << "Regresar.............................5" << endl << endl;
+		cin >> op1;
+
+		switch (op1) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5: system("cls"); main();
+			break;
+		default:cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
+		}
+		break;
+	};
+		
+
+   return 0;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
