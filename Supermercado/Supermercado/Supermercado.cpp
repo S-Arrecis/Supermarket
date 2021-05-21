@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "ConexionBD.h"
 #include "Persona.h"
 #include "Cliente.h"
@@ -60,7 +61,7 @@ void menu_Principal(){
 			case 4: menu_Marcas(); break;
 			case 5: menu_Productos(); break;
 			case 6: menu_Proveedores(); break;
-			case 7: system("cls"); cout << "Saliendo del Sistema...\n\n\n"; Sleep(1000); system("pause"); exit(1); break;
+			case 7: system("cls"); cout << "Saliendo del Sistema...\n\n\n"; Sleep(100); system("pause"); exit(1); break;
 
 			default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)\n\n\n" << endl; system("pause");
 		}
@@ -85,7 +86,7 @@ void munu_Puestos(){
 		case 1: break;
 		case 2: break;
 		case 3: {
-			cout << \n "DATOS DE LA TABLA PUESTO"\n << endl;
+			cout <<  "\nDATOS DE LA TABLA PUESTO\n" << endl;
 			
 		
 			Puesto p = Puesto();
@@ -103,7 +104,7 @@ void munu_Puestos(){
 		} break;
 		case 4: {
 			system("cls");
-			cout << \n "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
+			cout << "\nINGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
 			cin >> puesto;
 
 			Puesto p = Puesto(puesto);
