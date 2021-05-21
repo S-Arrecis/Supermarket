@@ -10,6 +10,8 @@
 
 using namespace std; //prueba de comit 3 viusal
 
+using namespace std;
+//prototipos
 void menu_Principal();
 void munu_Puestos();
 void menu_Empleados();
