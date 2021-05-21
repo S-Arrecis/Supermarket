@@ -209,7 +209,7 @@ void menu_Proveedores(){
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
 
-	} while (opcion_sub_menu != 4);
+	} while (opcion_sub_menu != 4); //pruebas comit desde visual
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
