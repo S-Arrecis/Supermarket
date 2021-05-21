@@ -57,7 +57,7 @@ public: Puesto() {
 
 			  cout << "------------------------------Clietes------------------------------" << endl << endl;
 			  while (fila = mysql_fetch_row(resultado)) {
-				  cout << fila[0] << endl;
+				  cout << fila[0]<<", " <<fila[1]<< endl;
 
 
 			  }

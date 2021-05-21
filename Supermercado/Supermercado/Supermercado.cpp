@@ -84,10 +84,26 @@ void munu_Puestos(){
 		switch (opcion_sub_menu) {
 		case 1: break;
 		case 2: break;
-		case 3: break;
-		case 4: {
+		case 3: {
+			cout << \n "DATOS DE LA TABLA PUESTO"\n << endl;
+			
+		
+			Puesto p = Puesto();
 
-			cout << "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
+			p.leer();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		} break;
+		case 4: {
+			system("cls");
+			cout << \n "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
 			cin >> puesto;
 
 			Puesto p = Puesto(puesto);
