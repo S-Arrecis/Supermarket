@@ -9,7 +9,7 @@
 #include "Puesto.h"
 
 using namespace std;
-
+//prototipos
 void menu_Principal();
 void munu_Puestos();
 void menu_Empleados();
