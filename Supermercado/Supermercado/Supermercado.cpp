@@ -18,8 +18,8 @@ void menu_Marcas();
 void menu_Productos();
 void menu_Proveedores();
 
-int opcion_menu, opcion_sub_menu; // variables para las opciones de los switch
-
+int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
+string puesto; //variable para enviar datos al puesto
 int main(){
     
   
@@ -81,13 +81,28 @@ void munu_Puestos(){
 		case 1: break;
 		case 2: break;
 		case 3: break;
-		case 4: break;
+		case 4: {
+
+			cout << "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
+			cin >> puesto;
+
+			Puesto p = Puesto(puesto);
+
+			p.crear();
+
+			system("pause");
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+		
+		}break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
 
-	} while (opcion_sub_menu != 5);
-}
+		} while (opcion_sub_menu != 5);
+	}
 
 void menu_Empleados(){
 	system("cls");
