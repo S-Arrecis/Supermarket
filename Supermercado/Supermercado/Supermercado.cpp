@@ -69,7 +69,7 @@ void munu_Puestos(){
 	system("cls");
 
 	do {
-		cout << "\n\t\t.:PUESTOS:.\n\n" << endl;
+		cout << "\n\t\t.:PUESTOS:.\n\n" << endl;//
 		cout << "1. Editar Puesto." << endl;
 		cout << "2. Eliminar Puesto." << endl;
 		cout << "3. Ver Puesto." << endl;
