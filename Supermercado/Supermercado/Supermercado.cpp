@@ -18,13 +18,15 @@ void menu_Marcas();
 void menu_Productos();
 void menu_Proveedores();
 
+ConexionBD conec = ConexionBD();
+
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
 string puesto; //variable para enviar datos al puesto
 int main(){
     
   
     cout << "\n\t\t\t   .:BIENVENIDO:. \n\n";
-	
+	conec.abrir_conexion();
 	menu_Principal();
 
    return 0;
