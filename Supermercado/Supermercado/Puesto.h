@@ -56,7 +56,7 @@ public: Puesto() {
 		  if (!q_estado) {
 			  resultado = mysql_store_result(cn.getConectar());
 
-			  cout << "------------------------------Clietes------------------------------" << endl << endl;
+			  cout << "------------------------------Puestos------------------------------" << endl << endl;
 			  while (fila = mysql_fetch_row(resultado)) {
 				  cout << fila[0]<<" "<< fila[1] << endl;
 			  }
