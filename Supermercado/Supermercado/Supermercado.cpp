@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 //#include <Windows.h>
 #include "ConexionBD.h"
 #include "Persona.h"
@@ -212,7 +211,7 @@ void menu_Clientes(){
 			cin >> ID;
 			cout << endl;
 			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
-			
+			cin.ignore();
 			cout << endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
 			getline(cin, nombre);
 			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
@@ -221,6 +220,7 @@ void menu_Clientes(){
 			getline(cin, nit);
 			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
 			cin >> genero;
+			cin.ignore();
 			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
 			getline(cin, telefono);
 			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
@@ -361,6 +361,7 @@ void menu_Productos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
+<<<<<<< HEAD
 		case 1: {
 			system("cls"); Producto p = Producto(); p.modificar(); cout << "\n\n"; system("pause"); menu_Productos();
 		} break;
@@ -392,6 +393,12 @@ void menu_Productos(){
 			cout << "\n\n"; system("pause"); menu_Productos();
 			
 		} break;
+=======
+		case 1: break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
+>>>>>>> b16715ba234a0ccbfceda5f7d064474e5b68e614
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
