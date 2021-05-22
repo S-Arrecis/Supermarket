@@ -12,7 +12,7 @@
 
 using namespace std; 
 
-//ll
+//l
 //using namespace std;
 //prototipos
 void menu_Principal();
@@ -361,7 +361,9 @@ void menu_Productos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
+		case 1: {
+			system("cls"); Producto p = Producto(); p.modificar(); cout << "\n\n"; system("pause"); menu_Productos();
+		} break;
 		case 2: {
 			system("cls");
 			Producto p = Producto(); p.eliminar(); cout << "\n\n"; system("pause"); menu_Productos();

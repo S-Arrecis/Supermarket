@@ -6,7 +6,7 @@
 #include<mysql.h>
 
 using namespace std;
-
+//l
 class Producto{
 	
 private:
