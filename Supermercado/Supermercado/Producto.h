@@ -200,7 +200,7 @@ public: string get_Fecha_Ingreso() {
      cn.cerrar_conexion();
 
  }
-
+ //
  void modificar() {
      ConexionBD cn = ConexionBD();
      
