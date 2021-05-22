@@ -104,7 +104,7 @@ public: void insertar() {
               if (!q_estado) {
                   resultado = mysql_store_result(cn.getConectar());
 
-                  cout << "\t\t------------------------------Identifica la Marca a Eliminar---------------------------\n" << endl;
+                  cout << "\t\t------------------------------Identifica la Marca---------------------------\n" << endl;
                   while (fila = mysql_fetch_row(resultado)) {
                       cout << fila[0] << ", " << fila[1] << endl;
 
@@ -131,7 +131,7 @@ public: void insertar() {
           int q_estado;
           ConexionBD cn = ConexionBD();
           ver();
-          //cout << "\n------------------------------Eliminar Marcas------------------------------\n" << endl;
+          cout << "\n\t\t------------------------------Eliminar Marcas------------------------------\n" << endl;
           string id;
           cout << "\n\nDigite el ID de la marca que desea eliminar: "; cin >> id;
           cn.abrir_conexion();
