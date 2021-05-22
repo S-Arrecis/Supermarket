@@ -89,27 +89,15 @@ void munu_Puestos(){
 
 			Puesto p = Puesto();
 			p.leer();
-
-			cout << endl << "-------------------------------------------------------------------" << endl;
-			cout << endl << "Ingrese la ID del puesto que desea actualizar: ";
-			cin >> ID;
-			cout << endl;
-			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
-			cout << "Ingrese Nuevo Puesto: ";
-			cin >> puesto;
 			
-<<<<<<< HEAD
-			Puesto p = Puesto();
-			p.leer();
-=======
-			Puesto p1 = Puesto(puesto,ID);
 
+			Puesto p1 = Puesto();
 			p1.actualizar();
 
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; case 2: exit(1); }
 		}
 	
 			break;
@@ -119,17 +107,14 @@ void munu_Puestos(){
 
 			Puesto p = Puesto();
 			p.leer();
-
-			cout << endl << "-------------------------------------------------------------------" << endl;
-			cout << endl << "Ingrese la ID del cliente que desea eliminar: ";
-			cin >> ID;
-
-			Puesto  p1 = Puesto(puesto,ID);
+			//Puesto  p1 = Puesto(puesto,ID);
+			Puesto p1 = Puesto();
 			p1.eliminar();
+
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; case 2: system("exit"); break; }
 
 		}break;
 		case 3: {
@@ -139,7 +124,7 @@ void munu_Puestos(){
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
 			switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
->>>>>>> 1dc35c775859cf4c6b94763944c9b4aa894c9c9c
+
 		
 		} break;
 		case 4: {
@@ -270,7 +255,10 @@ void menu_Productos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
+		case 1: {
+			system("cls"); Producto p = Producto(); p.modificar(); cout << "\n\n"; system("pause"); menu_Productos();
+		
+		} break;
 		case 2: {
 			system("cls");
 			Producto p = Producto(); p.eliminar(); cout << "\n\n"; system("pause"); menu_Productos();

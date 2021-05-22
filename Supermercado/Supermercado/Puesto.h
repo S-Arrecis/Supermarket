@@ -74,6 +74,9 @@ public: Puesto() {
   void eliminar() {
 	  int q_estado;
 	  ConexionBD cn = ConexionBD();
+	  cout << "\n-------------------------------------------------------------------" << endl;
+	  cout << "\nIngrese la ID del cliente que desea eliminar: ";
+	  cin >> ID;
 	  cn.abrir_conexion();
 	  if (cn.getConectar()) {
 		  string update = "delete from db_super_mercado.puestos  where('" + ID + "')=idpuesto";
@@ -94,6 +97,15 @@ public: Puesto() {
   void actualizar() {
 	  int q_estado;
 	  ConexionBD cn = ConexionBD();
+
+	  cout << "\n-------------------------------------------------------------------" << endl;
+	  cout << "\nIngrese la ID del puesto que desea actualizar: ";
+	  cin >> ID;
+	  cout << endl;
+	  cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+	  cout << "Ingrese Nuevo Puesto: ";
+	  cin >> puesto;
+
 	  cn.abrir_conexion();
 	  if (cn.getConectar()) {
 		 
