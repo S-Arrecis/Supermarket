@@ -5,6 +5,7 @@
 #include<mysql.h>
 using namespace std;
 
+//cla
 class Marca{
 
     //private: int id;
