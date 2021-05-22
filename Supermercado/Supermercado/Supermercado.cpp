@@ -203,9 +203,7 @@ void menu_Marcas(){
 		} break;
 		
 		case 4: { system("cls");
-			cout << "\nINGRESE EL NOMBRE DE LA MARCA QUE DESEA INSERTAR" << endl;
-			cin >> marca;
-			Marca mc = Marca(marca);
+			Marca mc = Marca();
 			mc.insertar();
 			cout << "\n\n"; system("pause"); menu_Marcas();
 		}break;

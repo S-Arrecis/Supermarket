@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include"ConexionBD.h"
 #include<mysql.h>
 using namespace std;
@@ -29,6 +30,9 @@ public: void insertar() {
        
      int q_estado;
      ConexionBD cn = ConexionBD();
+     cin.ignore();
+     cout << "\nIngrese el nombre de la marca a ingresar: ";
+     getline(cin, marca);
      cn.abrir_conexion();
      if (cn.getConectar()) {
 
@@ -164,8 +168,8 @@ public: void insertar() {
           cout << "\n\t\t------------------------------Editar Marcas------------------------------\n" << endl;
           string id;
           cout << "\n\nDigite el ID de la marca que desea editar: "; cin >> id;
-
-          cout << "\nDigte el nuevo nombre de la Marca: "; cin >> marca;
+          cin.ignore();
+          cout << "\nDigte el nuevo nombre de la Marca: ";  getline(cin, marca);
           cn.abrir_conexion();
 
           cn.abrir_conexion();
