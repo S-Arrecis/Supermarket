@@ -13,7 +13,7 @@ public: Puesto() {
     Puesto(string puesto, string id) {
     _puesto = puesto;
 	ID = id;
-}
+	}
 
   void crear() {
           int q_estado;
@@ -98,13 +98,6 @@ public: Puesto() {
 	  int q_estado;
 	  ConexionBD cn = ConexionBD();
 
-	  cout << "\n-------------------------------------------------------------------" << endl;
-	  cout << "\nIngrese la ID del puesto que desea actualizar: ";
-	  cin >> ID;
-	  cout << endl;
-	  cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
-	  cout << "Ingrese Nuevo Puesto: ";
-	  cin >> puesto;
 
 	  cn.abrir_conexion();
 	  if (cn.getConectar()) {
