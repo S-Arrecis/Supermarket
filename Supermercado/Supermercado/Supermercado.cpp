@@ -10,8 +10,9 @@
 
 using namespace std; 
 
-using namespace std;
-
+//ll
+//using namespace std;
+//prototipos
 void menu_Principal();
 void munu_Puestos();
 void menu_Empleados();
