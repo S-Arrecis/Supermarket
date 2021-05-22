@@ -51,5 +51,43 @@ public: void insertar() {
 
  }
 
+      void consultar() {
+
+          int q_estado;
+          ConexionBD cn = ConexionBD();
+          MYSQL_ROW fila;
+          MYSQL_RES* resultado;
+          cn.abrir_conexion();
+          if (cn.getConectar()) {
+
+              string consulta = "select * from marcas";
+              const char* c = consulta.c_str();
+              q_estado = mysql_query(cn.getConectar(), c);
+              if (!q_estado) {
+                  resultado = mysql_store_result(cn.getConectar());
+
+                  cout << "------------------------------Marcas------------------------------" << endl << endl;
+                  while (fila = mysql_fetch_row(resultado)) {
+                      cout << fila[0] << ", " << fila[1] << endl;
+
+
+                  }
+
+              }
+              else {
+                  cout << "error al consultar..." << endl;
+              }
+
+
+
+
+
+          }
+          else {
+              cout << "Error en la conexión..." << endl;
+          }
+          cn.cerrar_conexion();
+      }
+
 };
 
