@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 //#include <Windows.h>
 #include "ConexionBD.h"
 #include "Persona.h"
@@ -212,7 +211,7 @@ void menu_Clientes(){
 			cin >> ID;
 			cout << endl;
 			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
-			
+			cin.ignore();
 			cout << endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
 			getline(cin, nombre);
 			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
@@ -221,6 +220,7 @@ void menu_Clientes(){
 			getline(cin, nit);
 			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
 			cin >> genero;
+			cin.ignore();
 			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
 			getline(cin, telefono);
 			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
@@ -362,34 +362,9 @@ void menu_Productos(){
 
 		switch (opcion_sub_menu) {
 		case 1: break;
-		case 2: {
-			system("cls");
-			Producto p = Producto(); p.eliminar(); cout << "\n\n"; system("pause"); menu_Productos();
-		}break;
-		case 3: {Producto p = Producto(); system("cls"); p.consultar(); cout << "\n\n"; system("pause"); menu_Productos(); } break;
-		case 4: {
-			string producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso;
-			system("cls");
-			cout << "\t\t\t----------------------Insertar Datos de Productos--------------------\n\n";
-			Marca mc = Marca();
-			cin.ignore();
-			cout << "\nIngrese el nombre del Producto: ";
-			getline(cin, producto);
-			mc.ver();
-			cout << "\nIngrese el id de la marca: "; cin >> id;
-			cin.ignore();
-			cout << "Ingrese la Descripcion del producto: "; getline(cin, descripcion);
-			cout << "Digite el Costo del producto ( " + producto + " ): "; getline(cin, precio_costo);
-			cout << "Digite el Costo de venta del producto ( " + producto + " ): "; getline(cin, precio_venta);
-			cout << "Digte cuantas existencias tenemos del producto ( " + producto + " ): "; cin >> existencia;
-			cout << "Digite la fecha cuando ingreso el producto ( " + producto + " ) en formato YYYY-MM-DD "; cin >> fecha_ingreso;
-
-			Producto p = Producto(producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso);
-			p.insertar();
-			fflush(stdin);
-			cout << "\n\n"; system("pause"); menu_Productos();
-			
-		} break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}

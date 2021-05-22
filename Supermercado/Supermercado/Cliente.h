@@ -102,8 +102,7 @@ public:
 		cn.abrir_conexion();
 		if (cn.getConectar()) {
 
-		
-			string update = "update db_super_mercado.puestos set  nombres=('" + nombres + "'),apellidos = ('" + apellidos + "'),NIT = ('" + nit + "'),genero =('" + genero + "'),telefono =('" + telefono + "'),correo_electronico = ('" + correo + "'),fecha_ingreso = ('" + fecha_ingreso + "')   where('" + ID + "')=idpuesto";
+			string update = "update db_super_mercado.clientes set  nombres=('" + nombres + "'),apellidos = ('" + apellidos + "'),NIT = ('" + nit + "'),genero =('" + genero + "'),telefono =('" + telefono + "'),correo_electronico = ('" + correo + "'),fecha_ingreso = ('" + fecha_ingreso + "')   where('" + ID + "')=idCliente";
 			const char* i = update.c_str();
 			q_estado = mysql_query(cn.getConectar(), i);
 
