@@ -1,5 +1,4 @@
 #include <iostream>
-//#include <Windows.h>
 #include "ConexionBD.h"
 #include "Persona.h"
 #include "Cliente.h"
@@ -26,8 +25,6 @@ ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
 string puesto,marca,ID; //variable para enviar datos al puesto
-string nombre, apellido, nit, telefono, correo, fechaing;
-char genero;
 int main(){
     
   
@@ -92,15 +89,27 @@ void munu_Puestos(){
 
 			Puesto p = Puesto();
 			p.leer();
-			
 
-			Puesto p1 = Puesto();
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del puesto que desea actualizar: ";
+			cin >> ID;
+			cout << endl;
+			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+			cout << "Ingrese Nuevo Puesto: ";
+			cin >> puesto;
+			
+<<<<<<< HEAD
+			Puesto p = Puesto();
+			p.leer();
+=======
+			Puesto p1 = Puesto(puesto,ID);
+
 			p1.actualizar();
 
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); menu_Principal(); break; case 2: exit(1); }
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
 		}
 	
 			break;
@@ -110,14 +119,17 @@ void munu_Puestos(){
 
 			Puesto p = Puesto();
 			p.leer();
-			//Puesto  p1 = Puesto(puesto,ID);
-			Puesto p1 = Puesto();
-			p1.eliminar();
 
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del cliente que desea eliminar: ";
+			cin >> ID;
+
+			Puesto  p1 = Puesto(puesto,ID);
+			p1.eliminar();
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); menu_Principal(); break; case 2: system("exit"); break; }
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
 
 		}break;
 		case 3: {
@@ -127,7 +139,7 @@ void munu_Puestos(){
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
 			switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
-
+>>>>>>> 1dc35c775859cf4c6b94763944c9b4aa894c9c9c
 		
 		} break;
 		case 4: {
@@ -191,102 +203,10 @@ void menu_Clientes(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: {
-			system("cls");
-
-			Cliente C = Cliente();
-			C.leer();
-
-			cout << endl << "-------------------------------------------------------------------" << endl;
-			cout << endl << "Ingrese la ID del cliente que desea actualizar: ";
-			cin >> ID;
-			cout << endl;
-			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
-			
-			cout << endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
-			getline(cin, nombre);
-			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
-			getline(cin, apellido);
-			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
-			getline(cin, nit);
-			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
-			cin >> genero;
-			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
-			getline(cin, telefono);
-			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
-			getline(cin, correo);
-			cout << endl << "INGRESE LA FECHA DE INGRESO DEL CLIENTE EN FORMATO AAAA-MM-DD: " << endl;
-			getline(cin, fechaing);
-			cin.ignore();
-
-			Cliente c = Cliente(nombre, apellido, telefono, fechaing, genero, nit, correo, ID);
-
-			c.actualizar();
-
-
-			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
-			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
-		}
-
-			  break;
-		case 2:
-		{
-			system("cls");
-
-			Cliente C = Cliente();
-			C.leer();
-
-			cout << endl << "-------------------------------------------------------------------" << endl;
-			cout << endl << "Ingrese la ID del cliente que desea eliminar: ";
-			cin >> ID;
-
-			Cliente c = Cliente(nombre, apellido, telefono, fechaing, genero, nit, correo,ID);
-			c.eliminar();
-
-			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
-			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
-
-		}break;
-		case 3: {
-
-			Cliente C = Cliente();
-			C.leer();
-			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
-			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
-
-		} break;
-		case 4: {
-
-			cout<<endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
-			getline(cin,nombre);
-			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
-			getline(cin, apellido);
-			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
-			getline(cin, nit);
-			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
-			cin >> genero;
-			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
-			getline(cin, telefono);
-			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
-			getline(cin, correo);
-			cout << endl << "INGRESE LA FECHA DE INGRESO DEL CLIENTE EN FORMATO AAAA-MM-DD: " << endl;
-			getline(cin, fechaing);
-			cin.ignore();
-
-			Cliente C = Cliente(nombre,apellido,telefono,fechaing,genero,nit,correo,ID);
-
-			C.crear();
-
-			system("pause");
-			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
-			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
-
-
-		}break;
+		case 1: break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
@@ -350,10 +270,7 @@ void menu_Productos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: {
-			system("cls"); Producto p = Producto(); p.modificar(); cout << "\n\n"; system("pause"); menu_Productos();
-		
-		} break;
+		case 1: break;
 		case 2: {
 			system("cls");
 			Producto p = Producto(); p.eliminar(); cout << "\n\n"; system("pause"); menu_Productos();
