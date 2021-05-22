@@ -98,9 +98,16 @@ void munu_Puestos(){
 			cin >> puesto;
 			
 
+<<<<<<< HEAD
 			p.leer();
 
 			Puesto p1 = Puesto(puesto, ID);
+=======
+			Puesto p = Puesto();
+
+			p.leer();
+			Puesto p1 = Puesto(puesto,ID);
+>>>>>>> 3d8ca79b18d5cb239cb745695d1258608b99cf25
 
 			p1.actualizar();
 
@@ -137,9 +144,13 @@ void munu_Puestos(){
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
 			switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+<<<<<<< HEAD
 
 		
 		} break;
+=======
+	} break;
+>>>>>>> 3d8ca79b18d5cb239cb745695d1258608b99cf25
 		case 4: {
 
 			cout << "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
