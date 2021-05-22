@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include"ConexionBD.h"
+#include<mysql.h>
 using namespace std;
 
 class Marca{
@@ -23,39 +25,31 @@ public: string get_Marca() {
     return marca;
 }
 
-public: void menu() {
-    int opc;
+public: void insertar() {
+       
+     int q_estado;
+     ConexionBD cn = ConexionBD();
+     cn.abrir_conexion();
+     if (cn.getConectar()) {
 
-    do {
-        cout << "\n\t\t.:MARCAS:.\n\n" << endl;
-        cout << "1. Editar Marca." << endl;
-        cout << "2. Eliminar Marca." << endl;
-        cout << "3. Ver Marcas." << endl;
-        cout << "4. Insertar Marca." << endl;
-        cout << "5.  <-----< Regresar." << endl;
-        cout << "Digite un opcion: "; cin >> opc;
 
-        switch (opc) {
-        case 1:
-            break;
+         string insert = "INSERT INTO marcas(marca)VALUES('" + marca + "')";
+         const char* i = insert.c_str();
+         q_estado = mysql_query(cn.getConectar(), i);
+         if (!q_estado) {
+             cout << "Ingreso exitoso..." << endl;
+         }
+         else {
+             cout << "error al ingresar..." << endl;
+         }
 
-        case 2:
-            break;
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
 
-        case 3:
-            break;
-
-        case 4:
-            break;
-
-        case 5: //madamos a llamar al main o bien ejecutamos de nuevo
-            break;
-
-        default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
-        }
-
-    } while (opc != 4);
-}
+ }
 
 };
 

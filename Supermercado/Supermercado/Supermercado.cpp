@@ -24,7 +24,7 @@ void menu_Proveedores();
 ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
-string puesto; //variable para enviar datos al puesto
+string puesto,marca; //variable para enviar datos al puesto
 int main(){
     
   
@@ -190,7 +190,12 @@ void menu_Marcas(){
 		case 1: break;
 		case 2: break;
 		case 3: break;
-		case 4: break;
+		case 4: { system("cls");
+			cout << "\nINGRESE EL NOMBRE DE LA MARCA QUE DESEA INSERTAR" << endl;
+			cin >> marca;
+			Marca mc = Marca(marca);
+			mc.insertar();
+		}break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
