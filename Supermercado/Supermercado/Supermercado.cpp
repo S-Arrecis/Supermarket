@@ -23,12 +23,12 @@ void menu_Proveedores();
 ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
-string puesto; //variable para enviar datos al puesto
+string puesto,marca; //variable para enviar datos al puesto
 int main(){
     
   
     cout << "\n\t\t\t   .:BIENVENIDO:. \n\n";
-	conec.abrir_conexion();
+	conec.primera_conexion();
 	menu_Principal();
 
    return 0;
@@ -170,11 +170,29 @@ void menu_Marcas(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
+		case 1: {system("cls"); 
+			Marca mc = Marca();
+			mc.editar(); cout << "\n\n"; menu_Marcas(); } break;
+		
+		case 2: { system("cls"); Marca mc = Marca(); mc.eliminar(); cout << "\n\n"; system("pause"); menu_Marcas();  } break;
+		
+		case 3: {
+			system("cls");
+			cout << "\t\tCONSULTAR MARCAS\n\n";
+			Marca mc = Marca();
+			mc.consultar();
+			cout << "\n\n"; system("pause"); menu_Marcas();
+			
+		} break;
+		
+		case 4: { system("cls");
+			Marca mc = Marca();
+			mc.insertar();
+			cout << "\n\n"; system("pause"); menu_Marcas();
+		}break;
+		
 		case 5: menu_Principal(); break;
+		
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
 

@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include"ConexionBD.h"
+#include<mysql.h>
 using namespace std;
 
 class Marca{
@@ -23,39 +26,174 @@ public: string get_Marca() {
     return marca;
 }
 
-public: void menu() {
-    int opc;
+public: void insertar() {
+       
+     int q_estado;
+     ConexionBD cn = ConexionBD();
+     cin.ignore();
+     cout << "\nIngrese el nombre de la marca a ingresar: ";
+     getline(cin, marca);
+     cn.abrir_conexion();
+     if (cn.getConectar()) {
 
-    do {
-        cout << "\n\t\t.:MARCAS:.\n\n" << endl;
-        cout << "1. Editar Marca." << endl;
-        cout << "2. Eliminar Marca." << endl;
-        cout << "3. Ver Marcas." << endl;
-        cout << "4. Insertar Marca." << endl;
-        cout << "5.  <-----< Regresar." << endl;
-        cout << "Digite un opcion: "; cin >> opc;
 
-        switch (opc) {
-        case 1:
-            break;
+         string insert = "INSERT INTO marcas(marca)VALUES('" + marca + "')";
+         const char* i = insert.c_str();
+         q_estado = mysql_query(cn.getConectar(), i);
+         if (!q_estado) {
+             cout << "Ingreso exitoso..." << endl;
+         }
+         else {
+             cout << "error al ingresar..." << endl;
+         }
 
-        case 2:
-            break;
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
 
-        case 3:
-            break;
+ }
 
-        case 4:
-            break;
+      void consultar() {
 
-        case 5: //madamos a llamar al main o bien ejecutamos de nuevo
-            break;
+          int q_estado;
+          ConexionBD cn = ConexionBD();
+          MYSQL_ROW fila;
+          MYSQL_RES* resultado;
+          cn.abrir_conexion();
+          if (cn.getConectar()) {
 
-        default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
-        }
+              string consulta = "select * from marcas";
+              const char* c = consulta.c_str();
+              q_estado = mysql_query(cn.getConectar(), c);
+              if (!q_estado) {
+                  resultado = mysql_store_result(cn.getConectar());
 
-    } while (opc != 4);
-}
+                  cout << "------------------------------Marcas------------------------------\n" << endl;
+                  while (fila = mysql_fetch_row(resultado)) {
+                      cout << fila[0] << ", " << fila[1] << endl;
+
+
+                  }
+
+              }
+              else {
+                  cout << "error al consultar..." << endl;
+              }
+
+
+
+
+
+          }
+          else {
+              cout << "Error en la conexión..." << endl;
+          }
+          cn.cerrar_conexion();
+      }
+
+      void ver() {
+
+          int q_estado;
+          ConexionBD cn = ConexionBD();
+          MYSQL_ROW fila;
+          MYSQL_RES* resultado;
+          cn.abrir_conexion();
+          if (cn.getConectar()) {
+
+              string consulta = "select * from marcas";
+              const char* c = consulta.c_str();
+              q_estado = mysql_query(cn.getConectar(), c);
+              if (!q_estado) {
+                  resultado = mysql_store_result(cn.getConectar());
+
+                  cout << "\t\t------------------------------Identifica la Marca---------------------------\n" << endl;
+                  while (fila = mysql_fetch_row(resultado)) {
+                      cout << fila[0] << ", " << fila[1] << endl;
+
+
+                  }
+
+              }
+              else {
+                  cout << "error al consultar..." << endl;
+              }
+
+
+
+
+
+          }
+          else {
+              cout << "Error en la conexión..." << endl;
+          }
+          cn.cerrar_conexion();
+      }
+
+      void eliminar() {
+          int q_estado;
+          ConexionBD cn = ConexionBD();
+          ver();
+          cout << "\n\t\t------------------------------Eliminar Marcas------------------------------\n" << endl;
+          string id;
+          cout << "\n\nDigite el ID de la marca que desea eliminar: "; cin >> id;
+          cn.abrir_conexion();
+          
+          if (cn.getConectar()) {
+              string  insertar = "DELETE FROM marcas  WHERE (idmarcas = '" + id + "')";
+              const char* i = insertar.c_str();
+              // executar el query
+              q_estado = mysql_query(cn.getConectar(), i);
+              if (!q_estado) {
+                  cout << "Eliminacion  Exitosa ..." << endl;
+              }
+              else {
+                  cout << " xxx Error al Eliminar  xxx" << endl;
+              }
+          }
+          else {
+              cout << " xxx Error en la Conexion xxxx" << endl;
+          }
+          cn.cerrar_conexion();
+
+      }
+
+      void editar() {
+
+          int q_estado;
+          ConexionBD cn = ConexionBD();
+
+          ver();
+          cout << "\n\t\t------------------------------Editar Marcas------------------------------\n" << endl;
+          string id;
+          cout << "\n\nDigite el ID de la marca que desea editar: "; cin >> id;
+          cin.ignore();
+          cout << "\nDigte el nuevo nombre de la Marca: ";  getline(cin, marca);
+          cn.abrir_conexion();
+
+          cn.abrir_conexion();
+          if (cn.getConectar()) {
+
+
+              string insert = "UPDATE marcas SET  marca =('" + marca + "') where idmarcas =('"+id+"')";
+              const char* i = insert.c_str();
+              q_estado = mysql_query(cn.getConectar(), i);
+
+              if (!q_estado) {
+                  cout << "Ingreso exitoso..." << endl;
+              }
+              else {
+                  cout << "error al ingresar..." << endl;
+              }
+
+          }
+          else {
+              cout << "Error en la conexión..." << endl;
+          }
+          cn.cerrar_conexion();
+
+      }
 
 };
 
