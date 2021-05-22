@@ -361,7 +361,7 @@ void menu_Productos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-<<<<<<< HEAD
+
 		case 1: {
 			system("cls"); Producto p = Producto(); p.modificar(); cout << "\n\n"; system("pause"); menu_Productos();
 		} break;
@@ -393,12 +393,6 @@ void menu_Productos(){
 			cout << "\n\n"; system("pause"); menu_Productos();
 			
 		} break;
-=======
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
->>>>>>> b16715ba234a0ccbfceda5f7d064474e5b68e614
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
