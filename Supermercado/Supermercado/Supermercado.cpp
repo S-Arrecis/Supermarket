@@ -23,7 +23,7 @@ void menu_Proveedores();
 ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
-string puesto,marca; //variable para enviar datos al puesto
+string puesto,marca,ID; //variable para enviar datos al puesto
 int main(){
     
   
@@ -84,13 +84,21 @@ void munu_Puestos(){
 		switch (opcion_sub_menu) {
 		case 1: break;
 		case 2: break;
-		case 3: break;
+		case 3: {
+
+			Puesto p = Puesto();
+			p.leer();
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+			switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+		
+		} break;
 		case 4: {
 
 			cout << "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
 			cin >> puesto;
 
-			Puesto p = Puesto(puesto);
+			Puesto p = Puesto(puesto,ID);
 
 			p.crear();
 

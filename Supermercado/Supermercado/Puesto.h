@@ -5,14 +5,14 @@ using namespace std;
 
 class Puesto{
 
-private: string _puesto;
+private: string _puesto, ID;
 
 public: Puesto() {
 
 }
-    Puesto(string puesto) {
+    Puesto(string puesto, string id) {
     _puesto = puesto;
-  
+	ID = id;
 }
 
   void crear() {
@@ -42,6 +42,7 @@ public: Puesto() {
 
   
   void leer() {
+	  system("cls");
 	  int q_estado;
 	  ConexionBD cn = ConexionBD();
 	  MYSQL_ROW fila;
@@ -57,7 +58,7 @@ public: Puesto() {
 
 			  cout << "------------------------------Clietes------------------------------" << endl << endl;
 			  while (fila = mysql_fetch_row(resultado)) {
-				  cout << fila[0] << endl;
+				  cout << fila[0]<<", "<< fila[1] << endl;
 
 
 			  }
@@ -77,7 +78,31 @@ public: Puesto() {
 	  }
 	  cn.cerrar_conexion();
   }
+  void eliminar() {
+	  int q_estado;
+	  ConexionBD cn = ConexionBD();
+	  cn.abrir_conexion();
+	  if (cn.getConectar()) {
+		  string update = "delete from puestos  where('" + ID + "')=id_cliente";
+		  const char* i = update.c_str();
+		  q_estado = mysql_query(cn.getConectar(), i);
+		  if (!q_estado) {
+			  cout << "Eliminacion exitosa..." << endl;
+		  }
+		  else {
+			  cout << "Error al eliminar..." << endl;
+		  }
+	  }
+	  else {
+		  cout << "Error en la conexión..." << endl;
+	  }cn.cerrar_conexion();
 
+
+
+
+
+
+  }
   
 
 
