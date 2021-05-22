@@ -29,7 +29,7 @@ int main(){
     
   
     cout << "\n\t\t\t   .:BIENVENIDO:. \n\n";
-	conec.abrir_conexion();
+	conec.primera_conexion();
 	menu_Principal();
 
    return 0;
