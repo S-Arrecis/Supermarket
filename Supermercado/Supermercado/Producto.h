@@ -211,22 +211,21 @@ public: string get_Fecha_Ingreso() {
      cout << "\n\n\t\t.:Modificar Producto:. \n\n" << endl;
      cout << "\nDigite el ID del producto a modificar: ";
      cin >> dato_antiguo;
-
+     cin.ignore();
      cout << "Ingrese Nombre del producto: ";
-     cin >> producto;
-     fflush(stdin);
+     getline(cin, producto);
      fflush(stdin);
      cout << "Ingresse el ID de la Marca: ";
      cin >> id_marca;
      fflush(stdin);
      fflush(stdin);
+     cin.ignore();
      cout << "Ingrese la descripcion: ";
-     cin >> descripcion;
+     getline(cin, descripcion);
      fflush(stdin);
      fflush(stdin);
      cout << "Digita el Precio de compra del producto: ";
      cin >> precio_costo;
-     fflush(stdin);
      fflush(stdin);
      cout << "Digita el precio de venta del producto: ";
      cin >> precio_venta;
@@ -238,8 +237,9 @@ public: string get_Fecha_Ingreso() {
      fflush(stdin);
      fecha = "now()";
 
-     string consulta = "UPDATE productos SET producto = '" + producto + "' , idmarca= '" + id_marca + "', descripcion= '" + descripcion + "',|precio_costo = '" + precio_costo + "' , precio_venta = '" + precio_venta + "',existencia ='" + existencia + "' WHERE id_productos = '" + dato_antiguo + "'";
+     string consulta = "UPDATE `db_super_mercado`.`productos` SET `producto` = '" + producto + "' , `idmarca` =  '" + id_marca + "',`descripcion`= '" + descripcion + "',`|precio_costo` = '" + precio_costo + "',  `precio_venta` = '" + precio_venta + "', `existencia` = '" + existencia + "',`fehca_ingreso`="+fecha+" WHERE (`idproductos` = '" + dato_antiguo + "')";
 
+  
      const char* insertar = consulta.c_str();
      q_estado = mysql_query(cn.getConectar(), insertar);
 
