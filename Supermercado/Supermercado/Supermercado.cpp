@@ -201,7 +201,7 @@ void menu_Marcas(){
 			cin >> marca;
 			Marca mc = Marca(marca);
 			mc.insertar();
-			cout << "\n\n"; system("pause"); menu_Marcas();
+			cout << "\n\n"; system("pause"); menu_Marcas(
 		}break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
