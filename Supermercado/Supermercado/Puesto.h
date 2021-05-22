@@ -58,20 +58,13 @@ public: Puesto() {
 
 			  cout << "------------------------------Clietes------------------------------" << endl << endl;
 			  while (fila = mysql_fetch_row(resultado)) {
-				  cout << fila[0]<<", "<< fila[1] << endl;
-
-
+				  cout << fila[0]<<" "<< fila[1] << endl;
 			  }
 
 		  }
 		  else {
 			  cout << "error al consultar..." << endl;
 		  }
-
-
-
-
-
 	  }
 	  else {
 		  cout << "Error en la conexión..." << endl;
@@ -83,7 +76,7 @@ public: Puesto() {
 	  ConexionBD cn = ConexionBD();
 	  cn.abrir_conexion();
 	  if (cn.getConectar()) {
-		  string update = "delete from puestos  where('" + ID + "')=id_cliente";
+		  string update = "delete from db_super_mercado.puestos  where('" + ID + "')=idpuesto";
 		  const char* i = update.c_str();
 		  q_estado = mysql_query(cn.getConectar(), i);
 		  if (!q_estado) {
@@ -94,17 +87,34 @@ public: Puesto() {
 		  }
 	  }
 	  else {
-		  cout << "Error en la conexiÃ³n..." << endl;
+		  cout << "Error en la conexion..." << endl;
+	  }cn.cerrar_conexion();
+  }
+  
+  void actualizar() {
+	  int q_estado;
+	  ConexionBD cn = ConexionBD();
+	  cn.abrir_conexion();
+	  if (cn.getConectar()) {
+		 
+		  //system("pause");
+		  string update = "update db_super_mercado.puestos set puesto = ('"+ _puesto +"')  where('" + ID + "')=idpuesto";
+		  const char* i = update.c_str();
+		  q_estado = mysql_query(cn.getConectar(), i);
+
+		  if (!q_estado) {
+			  cout << "Actualizacion exitosa..." << endl;
+		  }
+		  else {
+			  cout << "Error al Actualizar..." << endl;
+		  }
+	  }
+	  else {
+		  cout << "Error en la conexion..." << endl;
 	  }cn.cerrar_conexion();
 
 
-
-
-
-
   }
-  
-
 
 
 

@@ -83,8 +83,50 @@ void munu_Puestos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
-		case 2: break;
+		case 1: {
+			system("cls");
+
+			Puesto p = Puesto();
+			p.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del puesto que desea actualizar: ";
+			cin >> ID;
+			cout << endl;
+			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+			cout << "Ingrese Nuevo Puesto: ";
+			cin >> puesto;
+			
+			Puesto p1 = Puesto(puesto,ID);
+
+			p1.actualizar();
+
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		}
+	
+			break;
+		case 2: 
+			{
+			system("cls");
+
+			Puesto p = Puesto();
+			p.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del cliente que desea eliminar: ";
+			cin >> ID;
+
+			Puesto  p1 = Puesto(puesto,ID);
+			p1.eliminar();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+		}break;
 		case 3: {
 
 			Puesto p = Puesto();
