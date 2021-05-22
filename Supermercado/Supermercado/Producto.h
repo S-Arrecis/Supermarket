@@ -1,18 +1,18 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <string.h>
+#include"ConexionBD.h"
+#include<mysql.h>
 
 using namespace std;
 
 class Producto{
 	
 private:
-    string productos, descripcion, fecha_ingreso;
+    string productos, descripcion, fecha_ingreso, precio_costo, precio_venta, id_marca, existencia;
 
-private:
-    float precio_costo, precio_venta;
 
-private:
-    int id_marca, existencia;
 
 public:
     Producto()
@@ -20,7 +20,7 @@ public:
     }
 
 public:
-    Producto(string _productos, int _id_marca, string _descripcion, float _precio_costo, float _precio_venta, int _existencia, string _fecha_ingreso)
+    Producto(string _productos, string _id_marca, string _descripcion, string _precio_costo, string _precio_venta, string _existencia, string _fecha_ingreso)
     {
 
         productos = _productos;
@@ -63,22 +63,22 @@ public: void set_Fecha_Ingreso(string _Fecha) {
 public: string get_Productos() {
     return productos;
 }
-public: int get_ID_marca() {
+public: string get_ID_marca() {
     return id_marca;
 }
 public: string get_Descripcioin() {
     return descripcion;
 }
 
-public: float get_Precio_costo() {
+public: string get_Precio_costo() {
     return precio_costo;
 }
 
-public: float get_Precio_venta() {
+public: string get_Precio_venta() {
     return precio_venta;
 }
 
-public: int get_Existencia() {
+public: string get_Existencia() {
     return existencia;
 }
 
@@ -86,39 +86,120 @@ public: string get_Fecha_Ingreso() {
     return fecha_ingreso;
 }
 
-public: void menu() {
-    int opc;
 
-    do {
-        cout << "\n\t\t.:PRODUCTOS:.\n\n" << endl;
-        cout << "1. Editar Producto." << endl;
-        cout << "2. Eliminar Producto." << endl;
-        cout << "3. Ver Producto." << endl;
-        cout << "4. Insertar Producto." << endl;
-        cout << "5.  <-----< Regresar." << endl;
-        cout << "Digite un opcion: "; cin >> opc;
+ void insertar() {
+     
+     int q_estado;
+     ConexionBD cn = ConexionBD();
+       cn.abrir_conexion();
+     if (cn.getConectar()) {
 
-        switch (opc) {
+         string insert = "INSERT INTO `db_super_mercado`.`productos` (`producto`, `idmarca`, `descripcion`, `|precio_costo`, `precio_venta`, `existencia`, `fehca_ingreso`) VALUES('" + productos + "','"+id_marca+"','" + descripcion + "','" + precio_costo + "','" + precio_venta + "','" + existencia + "','" + fecha_ingreso + "'  )";
+         const char* i = insert.c_str();
+         q_estado = mysql_query(cn.getConectar(), i);
+         
+         ///cout << insert << endl;
+         system("pause");
+         if (!q_estado) {
+             cout << "Ingreso exitoso..." << endl;
+         }
+         else {
+             cout << "error al ingresar..." << endl;
+         }
 
-        case 1:
-            break;
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
+ }
 
-        case 2:
-            break;
+ void consultar() {
 
-        case 3:
-            break;
+     int q_estado;
+     ConexionBD cn = ConexionBD();
+     MYSQL_ROW fila;
+     MYSQL_RES* resultado;
+     cn.abrir_conexion();
+     if (cn.getConectar()) {
 
-        case 4:
-            break;
+         string consulta = "select * from productos";
+         const char* c = consulta.c_str();
+         q_estado = mysql_query(cn.getConectar(), c);
+         if (!q_estado) {
+             resultado = mysql_store_result(cn.getConectar());
 
-        case 5: //llamamos al main para regresar
-            break;
-        default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
-        }
+             cout << "------------------------------Productos------------------------------\n" << endl;
+             while (fila = mysql_fetch_row(resultado)) {
+                 cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[5] << ", " << fila[6] << ", " << fila[7] << ", " << fila[8] << endl;
+             }
+         }
+         else {
+             cout << "error al consultar..." << endl;
+         }
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
+ }
 
-    } while (opc != 5);
-}
+ void ver() {
+
+     int q_estado;
+     ConexionBD cn = ConexionBD();
+     MYSQL_ROW fila;
+     MYSQL_RES* resultado;
+     cn.abrir_conexion();
+     if (cn.getConectar()) {
+
+         string consulta = "select * from productos";
+         const char* c = consulta.c_str();
+         q_estado = mysql_query(cn.getConectar(), c);
+         if (!q_estado) {
+             resultado = mysql_store_result(cn.getConectar());
+
+             cout << "------------------------------Productos------------------------------\n" << endl;
+             while (fila = mysql_fetch_row(resultado)) {
+                 cout << fila[0] << ", " << fila[1] << endl;
+             }
+         }
+         else {
+             cout << "error al consultar..." << endl;
+         }
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
+ }
+
+ void eliminar() {
+     int q_estado;
+     ConexionBD cn = ConexionBD();
+     ver();
+     cout << "\n\t\t------------------------------Eliminar Productos------------------------------\n" << endl;
+     string id;
+     cout << "\n\nDigite el ID del Producto que desea eliminar: "; cin >> id;
+     cn.abrir_conexion();
+
+     if (cn.getConectar()) {
+         string  insertar = "DELETE FROM productos  WHERE (idproductos = '" + id + "')";
+         const char* i = insertar.c_str();
+         q_estado = mysql_query(cn.getConectar(), i);
+         if (!q_estado) {
+             cout << "Eliminacion  Exitosa ..." << endl;
+         }
+         else {
+             cout << " xxx Error al Eliminar  xxx" << endl;
+         }
+     }
+     else {
+         cout << " xxx Error en la Conexion xxxx" << endl;
+     }
+     cn.cerrar_conexion();
+
+ }
 
 };
 

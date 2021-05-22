@@ -38,6 +38,7 @@ int main(){
 
 void menu_Principal(){
 	system("cls");
+	system("cls");
 
 	do{
 
@@ -89,18 +90,8 @@ void munu_Puestos(){
 		case 3: {
 			cout <<  "\nDATOS DE LA TABLA PUESTO\n" << endl;
 			
-		
 			Puesto p = Puesto();
-
 			p.leer();
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		} break;
 		case 4: {
@@ -220,7 +211,7 @@ void menu_Marcas(){
 
 void menu_Productos(){
 	system("cls");
-
+	string producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso;
 	do {
 		cout << "\n\t\t.:PRODUCTOS:.\n\n" << endl;
 		cout << "1. Editar Producto." << endl;
@@ -232,9 +223,37 @@ void menu_Productos(){
 
 		switch (opcion_sub_menu) {
 		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
+		case 2: {
+			system("cls");
+			Producto p = Producto(); p.eliminar(); cout << "\n\n"; system("pause"); menu_Productos();
+		} break;
+		case 3: {
+			
+			Producto p = Producto(); system("cls"); p.consultar(); cout << "\n\n"; system("pause"); menu_Productos();
+			
+		} break;
+		case 4: {
+			system("cls");
+			cout << "\t\t\t----------------------Insertar Datos de Productos--------------------\n\n";
+			Marca mc = Marca();
+			cin.ignore();
+			cout << "\nIngrese el nombre del Producto: ";
+			getline(cin, producto);
+			mc.ver();
+			cout << "\nIngrese el id de la marca: "; cin >> id;
+			cin.ignore();
+			cout << "Ingrese la Descripcion del producto: "; getline(cin, descripcion);
+			cout << "Digite el Costo del producto ( " + producto + " ): "; getline(cin, precio_costo);
+			cout << "Digite el Costo de venta del producto ( " + producto + " ): "; getline(cin, precio_venta);
+			cout << "Digte cuantas existencias tenemos del producto ( " + producto + " ): "; cin >> existencia;
+			cout << "Digite la fecha cuando ingreso el producto ( " + producto + " ) en formato YYYY-MM-DD "; cin >> fecha_ingreso;
+			
+			Producto p = Producto(producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso);
+			p.insertar();
+			fflush(stdin);
+			cout << "\n\n"; system("pause"); menu_Productos();
+			
+		} break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
