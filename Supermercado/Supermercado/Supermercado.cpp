@@ -1,4 +1,5 @@
 #include <iostream>
+//#include <Windows.h>
 #include "ConexionBD.h"
 #include "Persona.h"
 #include "Cliente.h"
@@ -25,6 +26,8 @@ ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
 string puesto,marca,ID; //variable para enviar datos al puesto
+string nombre, apellido, nit, telefono, correo, fechaing;
+char genero;
 int main(){
     
   
@@ -36,7 +39,6 @@ int main(){
 }
 
 void menu_Principal(){
-	system("cls");
 	system("cls");
 
 	do{
@@ -86,6 +88,7 @@ void munu_Puestos(){
 		switch (opcion_sub_menu) {
 		case 1: {
 			system("cls");
+
 			Puesto p = Puesto();
 			p.leer();
 
@@ -97,17 +100,7 @@ void munu_Puestos(){
 			cout << "Ingrese Nuevo Puesto: ";
 			cin >> puesto;
 			
-
-<<<<<<< HEAD
-			p.leer();
-
-			Puesto p1 = Puesto(puesto, ID);
-=======
-			Puesto p = Puesto();
-
-			p.leer();
 			Puesto p1 = Puesto(puesto,ID);
->>>>>>> 3d8ca79b18d5cb239cb745695d1258608b99cf25
 
 			p1.actualizar();
 
@@ -144,13 +137,8 @@ void munu_Puestos(){
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
 			switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
-<<<<<<< HEAD
-
 		
 		} break;
-=======
-	} break;
->>>>>>> 3d8ca79b18d5cb239cb745695d1258608b99cf25
 		case 4: {
 
 			cout << "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
@@ -212,10 +200,102 @@ void menu_Clientes(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
+		case 1: {
+			system("cls");
+
+			Cliente C = Cliente();
+			C.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del cliente que desea actualizar: ";
+			cin >> ID;
+			cout << endl;
+			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+			
+			cout << endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
+			getline(cin, nombre);
+			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
+			getline(cin, apellido);
+			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
+			getline(cin, nit);
+			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
+			cin >> genero;
+			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
+			getline(cin, telefono);
+			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
+			getline(cin, correo);
+			cout << endl << "INGRESE LA FECHA DE INGRESO DEL CLIENTE EN FORMATO AAAA-MM-DD: " << endl;
+			getline(cin, fechaing);
+			cin.ignore();
+
+			Cliente c = Cliente(nombre, apellido, telefono, fechaing, genero, nit, correo, ID);
+
+			c.actualizar();
+
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		}
+
+			  break;
+		case 2:
+		{
+			system("cls");
+
+			Cliente C = Cliente();
+			C.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del cliente que desea eliminar: ";
+			cin >> ID;
+
+			Cliente c = Cliente(nombre, apellido, telefono, fechaing, genero, nit, correo,ID);
+			c.eliminar();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+		}break;
+		case 3: {
+
+			Cliente C = Cliente();
+			C.leer();
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+
+		} break;
+		case 4: {
+			fflush(stdin); //
+			cout<<endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
+			getline(cin,nombre);
+			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
+			getline(cin, apellido);
+			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
+			getline(cin, nit);
+			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
+			cin >> genero;
+			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
+			getline(cin, telefono);
+			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
+			getline(cin, correo);
+			cout << endl << "INGRESE LA FECHA DE INGRESO DEL CLIENTE EN FORMATO AAAA-MM-DD: " << endl;
+			getline(cin, fechaing);
+			cin.ignore();
+
+			Cliente C = Cliente(nombre,apellido,telefono,fechaing,genero,nit,correo,ID);
+
+			C.crear();
+
+			system("pause");
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+
+		}break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
@@ -268,7 +348,7 @@ void menu_Marcas(){
 
 void menu_Productos(){
 	system("cls");
-	string producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso;
+
 	do {
 		cout << "\n\t\t.:PRODUCTOS:.\n\n" << endl;
 		cout << "1. Editar Producto." << endl;
@@ -280,37 +360,9 @@ void menu_Productos(){
 
 		switch (opcion_sub_menu) {
 		case 1: break;
-		case 2: {
-			system("cls");
-			Producto p = Producto(); p.eliminar(); cout << "\n\n"; system("pause"); menu_Productos();
-		} break;
-		case 3: {
-			
-			Producto p = Producto(); system("cls"); p.consultar(); cout << "\n\n"; system("pause"); menu_Productos();
-			
-		} break;
-		case 4: {
-			system("cls");
-			cout << "\t\t\t----------------------Insertar Datos de Productos--------------------\n\n";
-			Marca mc = Marca();
-			cin.ignore();
-			cout << "\nIngrese el nombre del Producto: ";
-			getline(cin, producto);
-			mc.ver();
-			cout << "\nIngrese el id de la marca: "; cin >> id;
-			cin.ignore();
-			cout << "Ingrese la Descripcion del producto: "; getline(cin, descripcion);
-			cout << "Digite el Costo del producto ( " + producto + " ): "; getline(cin, precio_costo);
-			cout << "Digite el Costo de venta del producto ( " + producto + " ): "; getline(cin, precio_venta);
-			cout << "Digte cuantas existencias tenemos del producto ( " + producto + " ): "; cin >> existencia;
-			cout << "Digite la fecha cuando ingreso el producto ( " + producto + " ) en formato YYYY-MM-DD "; cin >> fecha_ingreso;
-			
-			Producto p = Producto(producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso);
-			p.insertar();
-			fflush(stdin);
-			cout << "\n\n"; system("pause"); menu_Productos();
-			
-		} break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
