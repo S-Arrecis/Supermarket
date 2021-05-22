@@ -1,5 +1,4 @@
 #include <iostream>
-#include <Windows.h>
 #include "ConexionBD.h"
 #include "Persona.h"
 #include "Cliente.h"
@@ -9,7 +8,7 @@
 #include "Proveedor.h"
 #include "Puesto.h"
 
-using namespace std; //prueba de comit 3 viusal
+using namespace std; 
 
 //ll
 //using namespace std;
@@ -25,7 +24,7 @@ void menu_Proveedores();
 ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
-string puesto,marca; //variable para enviar datos al puesto
+string puesto,marca,ID; //variable para enviar datos al puesto
 int main(){
     
   
@@ -63,7 +62,7 @@ void menu_Principal(){
 			case 4: menu_Marcas(); break;
 			case 5: menu_Productos(); break;
 			case 6: menu_Proveedores(); break;
-			case 7: system("cls"); cout << "Saliendo del Sistema...\n\n\n"; Sleep(100); system("pause"); exit(1); break;
+			case 7: system("cls"); cout << "Saliendo del Sistema...\n\n\n"; Sleep(1000); system("pause"); exit(1); break;
 
 			default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)\n\n\n" << endl; system("pause");
 		}
@@ -85,21 +84,70 @@ void munu_Puestos(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
-		case 2: break;
-		case 3: {
-			cout <<  "\nDATOS DE LA TABLA PUESTO\n" << endl;
-			
+		case 1: {
+			system("cls");
+
 			Puesto p = Puesto();
 			p.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del puesto que desea actualizar: ";
+			cin >> ID;
+			cout << endl;
+			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+			cout << "Ingrese Nuevo Puesto: ";
+			cin >> puesto;
+			
+<<<<<<< HEAD
+			Puesto p = Puesto();
+			p.leer();
+=======
+			Puesto p1 = Puesto(puesto,ID);
+
+			p1.actualizar();
+
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		}
+	
+			break;
+		case 2: 
+			{
+			system("cls");
+
+			Puesto p = Puesto();
+			p.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del cliente que desea eliminar: ";
+			cin >> ID;
+
+			Puesto  p1 = Puesto(puesto,ID);
+			p1.eliminar();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+		}break;
+		case 3: {
+
+			Puesto p = Puesto();
+			p.leer();
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+			switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+>>>>>>> 1dc35c775859cf4c6b94763944c9b4aa894c9c9c
 		
 		} break;
 		case 4: {
-			system("cls");
-			cout << "\nINGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
+
+			cout << "INGRESE EL NOMBRE DEL PUESTO QUE DESEA INSERTAR" << endl;
 			cin >> puesto;
 
-			Puesto p = Puesto(puesto);
+			Puesto p = Puesto(puesto,ID);
 
 			p.crear();
 
