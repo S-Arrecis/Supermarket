@@ -187,8 +187,12 @@ void menu_Marcas(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
+		case 1: {system("cls"); 
+			Marca mc = Marca();
+			mc.editar(); cout << "\n\n"; menu_Marcas(); } break;
+		
 		case 2: { system("cls"); Marca mc = Marca(); mc.eliminar(); cout << "\n\n"; system("pause"); menu_Marcas();  } break;
+		
 		case 3: {
 			system("cls");
 			cout << "\t\tCONSULTAR MARCAS\n\n";
@@ -197,6 +201,7 @@ void menu_Marcas(){
 			cout << "\n\n"; system("pause"); menu_Marcas();
 			
 		} break;
+		
 		case 4: { system("cls");
 			cout << "\nINGRESE EL NOMBRE DE LA MARCA QUE DESEA INSERTAR" << endl;
 			cin >> marca;
@@ -204,7 +209,9 @@ void menu_Marcas(){
 			mc.insertar();
 			cout << "\n\n"; system("pause"); menu_Marcas();
 		}break;
+		
 		case 5: menu_Principal(); break;
+		
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
 

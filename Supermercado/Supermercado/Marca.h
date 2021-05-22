@@ -155,5 +155,41 @@ public: void insertar() {
 
       }
 
+      void editar() {
+
+          int q_estado;
+          ConexionBD cn = ConexionBD();
+
+          ver();
+          cout << "\n\t\t------------------------------Editar Marcas------------------------------\n" << endl;
+          string id;
+          cout << "\n\nDigite el ID de la marca que desea editar: "; cin >> id;
+
+          cout << "\nDigte el nuevo nombre de la Marca: "; cin >> marca;
+          cn.abrir_conexion();
+
+          cn.abrir_conexion();
+          if (cn.getConectar()) {
+
+
+              string insert = "UPDATE marcas SET  marca =('" + marca + "') where idmarcas =('"+id+"')";
+              const char* i = insert.c_str();
+              q_estado = mysql_query(cn.getConectar(), i);
+
+              if (!q_estado) {
+                  cout << "Ingreso exitoso..." << endl;
+              }
+              else {
+                  cout << "error al ingresar..." << endl;
+              }
+
+          }
+          else {
+              cout << "Error en la conexión..." << endl;
+          }
+          cn.cerrar_conexion();
+
+      }
+
 };
 
