@@ -188,12 +188,13 @@ void menu_Marcas(){
 
 		switch (opcion_sub_menu) {
 		case 1: break;
-		case 2: break;
+		case 2: { system("cls"); Marca mc = Marca(); mc.eliminar(); cout << "\n\n"; system("pause"); menu_Marcas();  } break;
 		case 3: {
 			system("cls");
 			cout << "\t\tCONSULTAR MARCAS\n\n";
 			Marca mc = Marca();
 			mc.consultar();
+			cout << "\n\n"; system("pause"); menu_Marcas();
 			
 		} break;
 		case 4: { system("cls");
@@ -201,7 +202,7 @@ void menu_Marcas(){
 			cin >> marca;
 			Marca mc = Marca(marca);
 			mc.insertar();
-			cout << "\n\n"; system("pause"); menu_Marcas(
+			cout << "\n\n"; system("pause"); menu_Marcas();
 		}break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
