@@ -268,7 +268,7 @@ void menu_Clientes(){
 
 		} break;
 		case 4: {
-			fflush(stdin); //
+			cin.ignore();
 			cout<<endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
 			getline(cin,nombre);
 			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
@@ -277,6 +277,7 @@ void menu_Clientes(){
 			getline(cin, nit);
 			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
 			cin >> genero;
+			cin.ignore();
 			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
 			getline(cin, telefono);
 			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
