@@ -201,5 +201,58 @@ public: string get_Fecha_Ingreso() {
 
  }
 
+ void modificar() {
+     ConexionBD cn = ConexionBD();
+     
+     int q_estado;
+     string producto, id_marca, descripcion, precio_costo, precio_venta, existencia, fecha, dato_antiguo;
+     cn.abrir_conexion();
+     ver();
+     cout << "\n\n\t\t.:Modificar Producto:. \n\n" << endl;
+     cout << "\nDigite el ID del producto a modificar: ";
+     cin >> dato_antiguo;
+
+     cout << "Ingrese Nombre del producto: ";
+     cin >> producto;
+     fflush(stdin);
+     fflush(stdin);
+     cout << "Ingresse el ID de la Marca: ";
+     cin >> id_marca;
+     fflush(stdin);
+     fflush(stdin);
+     cout << "Ingrese la descripcion: ";
+     cin >> descripcion;
+     fflush(stdin);
+     fflush(stdin);
+     cout << "Digita el Precio de compra del producto: ";
+     cin >> precio_costo;
+     fflush(stdin);
+     fflush(stdin);
+     cout << "Digita el precio de venta del producto: ";
+     cin >> precio_venta;
+     fflush(stdin);
+     fflush(stdin);
+     cout << "Digita cuantas existencias hay de este producto: ";
+     cin >> existencia;
+     fflush(stdin);
+     fflush(stdin);
+     fecha = "now()";
+
+     string consulta = "UPDATE productos SET producto = '" + producto + "' , idmarca= '" + id_marca + "', descripcion= '" + descripcion + "',|precio_costo = '" + precio_costo + "' , precio_venta = '" + precio_venta + "',existencia ='" + existencia + "' WHERE id_productos = '" + dato_antiguo + "'";
+
+     const char* insertar = consulta.c_str();
+     q_estado = mysql_query(cn.getConectar(), insertar);
+
+     if (!q_estado) {
+
+         cout << "\n\n\t\tDatos agregados con exito...\n\n" << endl;
+     }
+     else {
+         cout << "\n\n\t\tError al agregar los datos..\n\n" << endl;
+
+     }
+
+ }
+
 };
 
