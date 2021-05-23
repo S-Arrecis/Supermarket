@@ -218,15 +218,13 @@ void menu_Clientes(){
 			getline(cin, apellido);
 			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
 			getline(cin, nit);
-			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
+			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F o M): " << endl;
 			cin >> genero;
 			cin.ignore();
 			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
 			getline(cin, telefono);
 			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
 			getline(cin, correo);
-			cout << endl << "INGRESE LA FECHA DE INGRESO DEL CLIENTE EN FORMATO AAAA-MM-DD: " << endl;
-			getline(cin, fechaing);
 			cin.ignore();
 
 			Cliente c = Cliente(nombre, apellido, telefono, fechaing, genero, nit, correo, ID);
@@ -283,8 +281,6 @@ void menu_Clientes(){
 			getline(cin, telefono);
 			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
 			getline(cin, correo);
-			cout << endl << "INGRESE LA FECHA DE INGRESO DEL CLIENTE EN FORMATO AAAA-MM-DD: " << endl;
-			getline(cin, fechaing);
 			cin.ignore();
 
 			Cliente C = Cliente(nombre,apellido,telefono,fechaing,genero,nit,correo,ID);

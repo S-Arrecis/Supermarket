@@ -18,20 +18,29 @@ public:
     }
 
 
-  
-
+	string M, F, GeneroBit;
+	bool Bit;
 	void crear() {
+		
 		int q_estado;
+		if (genero == 'M') {
+			GeneroBit = '0';
+		}
+		else
+		{
+			GeneroBit = '1';
+		}
+		
 		ConexionBD cn = ConexionBD();
 		cn.abrir_conexion();
 		if (cn.getConectar()) {
-
-
-			string insert = "INSERT INTO clientes(nombres,apellidos,NIT,genero,telefono,correo_electronico,fecha_ingreso)  VALUES('" + nombres + "','" + apellidos + "','" + nit + "','" + genero + "','" + telefono + "','" + correo + "','" + fecha_ingreso + "')";
+			fecha_ingreso = "now()";
+			string insert = "INSERT INTO clientes(nombres,apellidos,NIT,genero,telefono,correo_electronico,fecha_ingreso)  VALUES('" + nombres + "','" + apellidos + "','" + nit + "'," + GeneroBit + ",'" + telefono + "','" + correo + "'," + fecha_ingreso + ")";
 			const char* i = insert.c_str();
 			q_estado = mysql_query(cn.getConectar(), i);
 			if (!q_estado) {
-				cout << "Ingreso exitoso..." << endl;
+				cout <<endl<< "Ingreso exitoso..." << endl;
+				
 			}
 			else {
 				cout << "error al ingresar..." << endl;
@@ -45,17 +54,19 @@ public:
 
 	}
 
-
 	void leer() {
 		system("cls");
 		int q_estado;
+		M = "Masculino";
+		F = "Femenino";
+
 		ConexionBD cn = ConexionBD();
 		MYSQL_ROW fila;
 		MYSQL_RES* resultado;
 		cn.abrir_conexion();
 		if (cn.getConectar()) {
 
-			string consulta = "select * from clientes";
+			string consulta = "SELECT *, if(genero=0,'" + M + "','" + F + "')  FROM clientes;";
 			const char* c = consulta.c_str();
 			q_estado = mysql_query(cn.getConectar(), c);
 			if (!q_estado) {
@@ -63,7 +74,7 @@ public:
 
 				cout << "------------------------------Clietes------------------------------" << endl << endl;
 				while (fila = mysql_fetch_row(resultado)) {
-					cout << fila[0] << " " << fila[1]<< " " << fila[2]<< " " << fila[3]<< " " << fila[4]<<" " << fila[5] << " " << fila[6]<< " " << fila[7]<< endl;
+					cout << fila[0] << ", " << fila[1]<< ", " << fila[2]<< ", " << fila[3]<< ", " << fila[8]<<", " << fila[5] << ", " << fila[6]<< ", " << fila[7]<< endl;
 				}
 
 			}
@@ -97,12 +108,19 @@ public:
 	}
 
 	void actualizar() {
+		if (genero == 'M') {
+			GeneroBit = '0';
+		}
+		else
+		{
+			GeneroBit = '1';
+		}
 		int q_estado;
 		ConexionBD cn = ConexionBD();
 		cn.abrir_conexion();
 		if (cn.getConectar()) {
-
-			string update = "update db_super_mercado.clientes set  nombres=('" + nombres + "'),apellidos = ('" + apellidos + "'),NIT = ('" + nit + "'),genero =('" + genero + "'),telefono =('" + telefono + "'),correo_electronico = ('" + correo + "'),fecha_ingreso = ('" + fecha_ingreso + "')   where('" + ID + "')=idCliente";
+			fecha_ingreso = "now()";
+			string update = "update db_super_mercado.clientes set  nombres=('" + nombres + "'),apellidos = ('" + apellidos + "'),NIT = ('" + nit + "'),genero =(" + GeneroBit + "),telefono =('" + telefono + "'),correo_electronico = ('" + correo + "'),fecha_ingreso = (" + fecha_ingreso + ")   where('" + ID + "')=idCliente";
 			const char* i = update.c_str();
 			q_estado = mysql_query(cn.getConectar(), i);
 
