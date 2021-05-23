@@ -23,7 +23,7 @@ public:
 	void crear() {
 		
 		int q_estado;
-		if (genero == 'M') {
+		if (genero == 'M' || 'm') {
 			GeneroBit = '0';
 		}
 		else
@@ -108,7 +108,7 @@ public:
 	}
 
 	void actualizar() {
-		if (genero == 'M') {
+		if ((genero == 'M') || (genero == 'm')) {
 			GeneroBit = '0';
 		}
 		else

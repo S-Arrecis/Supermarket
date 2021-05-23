@@ -218,8 +218,24 @@ void menu_Clientes(){
 			getline(cin, apellido);
 			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
 			getline(cin, nit);
+
+		CONDICION:
 			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F o M): " << endl;
 			cin >> genero;
+			
+			if (genero != 'F') {
+				if (genero != 'f') {
+					if (genero != 'M') {
+						if (genero != 'm') {
+							system("cls");
+							cout << endl << "!!EL DATO INGRESADO ES INVALIDO!!" << endl;
+							system("color 0c");
+							goto CONDICION;
+						}
+					}
+				}
+			}
+			system("color 02");
 			cin.ignore();
 			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
 			getline(cin, telefono);
@@ -274,8 +290,25 @@ void menu_Clientes(){
 			getline(cin, apellido);
 			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
 			getline(cin, nit);
-			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F O M): " << endl;
+
+		CONDICION1:
+			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F o M): " << endl;
 			cin >> genero;
+
+			if (genero != 'F') {
+				if (genero != 'f') {
+					if (genero != 'M') {
+						if (genero != 'm') {
+							system("cls");
+							cout << endl << "!!EL DATO INGRESADO ES INVALIDO!!" << endl;
+							system("color 0c");
+							goto CONDICION1;
+						}
+					}
+				}
+			}
+			system("color 02");
+
 			cin.ignore();
 			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
 			getline(cin, telefono);
