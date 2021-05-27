@@ -27,11 +27,12 @@ CREATE TABLE `clientes` (
   `nombres` varchar(60) DEFAULT NULL,
   `apellidos` varchar(60) DEFAULT NULL,
   `NIT` varchar(12) DEFAULT NULL,
+  `genero` bit(1) DEFAULT NULL,
   `telefono` varchar(25) DEFAULT NULL,
   `correo_electronico` varchar(45) DEFAULT NULL,
   `fecha_ingreso` datetime DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +41,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (10,'Andres','Romero','456789',_binary '\0','55446688','fasdfds','2021-05-22 20:27:45'),(11,'ggg','aaaa','2135',_binary '\0','4568','asdf','2020-01-01 00:00:00'),(12,'LOLO','Lomas','456789',_binary '','5545566','asdfasd','2021-05-22 20:08:41'),(13,'Mario','Martinez','456987',_binary '\0','5887898','MArio@gmail.com','2021-05-22 20:15:57');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,14 +53,14 @@ DROP TABLE IF EXISTS `compras`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `compras` (
-  `idcompras` int NOT NULL,
+  `idcompras` int NOT NULL AUTO_INCREMENT,
   `no_orden_compra` int DEFAULT NULL,
   `idproveedor` int DEFAULT NULL,
   `fecha_orden` date DEFAULT NULL,
   `fechaingreso` datetime DEFAULT NULL,
   PRIMARY KEY (`idcompras`),
   KEY `compras_proveedores_idx` (`idproveedor`),
-  CONSTRAINT `compras_proveedores` FOREIGN KEY (`idproveedor`) REFERENCES `proveedores` (`idproveedores`)
+  CONSTRAINT `comparas_proveedores` FOREIGN KEY (`idproveedor`) REFERENCES `proveedores` (`idproveedores`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,8 +87,8 @@ CREATE TABLE `compras_detalle` (
   `precio_costo_unitario` decimal(8,2) DEFAULT NULL,
   PRIMARY KEY (`idcompras_detalle`),
   KEY `compras_detalle_productos_idx` (`idproducto`),
-  KEY `compras detalle_compras_idx` (`idcompra`),
-  CONSTRAINT `compras detalle_compras` FOREIGN KEY (`idcompra`) REFERENCES `compras` (`idcompras`),
+  KEY `compras_detalle_compras_idx` (`idcompra`),
+  CONSTRAINT `compras_detalle_compras` FOREIGN KEY (`idcompra`) REFERENCES `compras` (`idcompras`),
   CONSTRAINT `compras_detalle_productos` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproductos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -113,15 +115,14 @@ CREATE TABLE `empleados` (
   `apellidos` varchar(60) DEFAULT NULL,
   `direccion` varchar(80) DEFAULT NULL,
   `telefono` varchar(25) DEFAULT NULL,
-  `genero` varchar(1) DEFAULT NULL,
+  `genero` bit(1) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `idpuesto` smallint DEFAULT NULL,
   `fecha_inicio_labores` date DEFAULT NULL,
   `fecha_ingreso` datetime DEFAULT NULL,
   PRIMARY KEY (`idEmpleado`),
-  KEY `empleados_puestos_idx` (`idpuesto`),
-  CONSTRAINT `` FOREIGN KEY (`idpuesto`) REFERENCES `puestos` (`idpuesto`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		';
+  KEY `empleados_puestos_idx` (`idpuesto`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +131,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
+INSERT INTO `empleados` VALUES (5,'Lolo','Linares','Ciudad','4565487',_binary '\0','1993-01-01',9,'2019-01-01','2021-05-26 22:51:35'),(6,'ADSF','ASDF','ASDF','ASDF',_binary '\0','2020-01-01',9,'2020-01-01','2021-05-26 21:45:46'),(9,'MARIO','JOSE','CIUDAD','456789',_binary '\0','2020-01-01',9,'2020-01-01','2021-05-26 21:46:57');
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +146,7 @@ CREATE TABLE `marcas` (
   `idmarcas` smallint NOT NULL AUTO_INCREMENT,
   `marca` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idmarcas`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +178,7 @@ CREATE TABLE `productos` (
   PRIMARY KEY (`idproductos`),
   KEY `productos_marcas_idx` (`idmarca`),
   CONSTRAINT `productos_marcas` FOREIGN KEY (`idmarca`) REFERENCES `marcas` (`idmarcas`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +227,7 @@ CREATE TABLE `puestos` (
   `idpuesto` smallint NOT NULL AUTO_INCREMENT,
   `puesto` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idpuesto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,6 +236,7 @@ CREATE TABLE `puestos` (
 
 LOCK TABLES `puestos` WRITE;
 /*!40000 ALTER TABLE `puestos` DISABLE KEYS */;
+INSERT INTO `puestos` VALUES (9,'Secretaria');
 /*!40000 ALTER TABLE `puestos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-01 20:20:57
+-- Dump completed on 2021-05-26 22:57:10
