@@ -1,80 +1,145 @@
-#pragma once
+#include"ConexionBD.h"
+#include<mysql.h>
 #include "Persona.h"
 class Empleado : public Persona{
 
-private: string dpi, fecha_nacimiento, fecha_inicio_labores;
-private: int id_puesto;
+private: string direccion, fecha_nacimiento, fecha_inicio_labores;
+private: string id_puesto, ID;
 
        //Constructores
 public: Empleado() : Persona() {
 
 }
 
-public: Empleado(string _nombres, string _apellidos, string _telefono, string _fecha_ingreso, char _genero, string _dpi, string _fecha_nacimiento, string _fecha_inicio_labores, int _id_puesto) :Persona(_nombres, _apellidos, _telefono, _fecha_ingreso, _genero) {
-    dpi = _dpi;
-    fecha_nacimiento = _fecha_nacimiento;
-    fecha_inicio_labores = _fecha_inicio_labores;
-    id_puesto = _id_puesto;
+public: Empleado(string _nombres, string _apellidos, string _telefono, string _fecha_ingreso, char _genero, string _direccion, string _fecha_nacimiento, string _fecha_inicio_labores, string _id_puesto, string id) :Persona(_nombres, _apellidos, _telefono, _fecha_ingreso, _genero) {
+	direccion = _direccion;
+	fecha_nacimiento = _fecha_nacimiento;
+	fecha_inicio_labores = _fecha_inicio_labores;
+	id_puesto = _id_puesto;
+	ID = id;
 }
-      //Metodos
+	  string M, F, GeneroBit;
+	  bool Bit;
+	  void crear() {
 
-      //set (modificamos los datos almacenados en las varibles)
-      void set_dpi(string _dpi) {
-          dpi = _dpi;
-      }
+		  int q_estado;
+		  if (genero == 'M' || 'm') {
+			  GeneroBit = '0';
+		  }
+		  else
+		  {
+			  GeneroBit = '1';
+		  }
 
-      void set_fecha_nacimiento(string _fecha_nacimiento) {
-          fecha_nacimiento = _fecha_nacimiento;
-      }
+		  ConexionBD cn = ConexionBD();
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+			  fecha_ingreso = "now()";
+			  string insert = "INSERT INTO empleados(nombres,apellidos,direccion,telefono,genero,fecha_nacimiento,idpuesto,fecha_inicio_labores,fecha_ingreso)  VALUES('" + nombres + "','" + apellidos + "','" + direccion + "','" + telefono + "'," + GeneroBit + ",'" + fecha_nacimiento + "','" + id_puesto + "','" + fecha_inicio_labores + "'," + fecha_ingreso + ")";
+			  const char* i = insert.c_str();
+			  q_estado = mysql_query(cn.getConectar(), i);
+			  if (!q_estado) {
+				  cout << endl << "Ingreso exitoso..." << endl;
 
-      void set_fecha_inicio_labores(string _fecha_inicio_labores) {
-          fecha_inicio_labores = _fecha_inicio_labores;
-      }
+			  }
+			  else {
+				  cout << "error al ingresar..." << endl;
+			  }
 
-      void set_id_puesto(int _id_puesto) {
-          id_puesto = _id_puesto;
-      }
+		  }
+		  else {
+			  cout << "Error en la conexión..." << endl;
+		  }
+		  cn.cerrar_conexion();
 
-      //get (mostramos los datos almacenados en las variables)
-      string get_dpi() {
-          return dpi;
-      }
+	  }
+	 
+	  void leer() {
+		  system("cls");
+		  int q_estado;
+		  M = "Masculino";
+		  F = "Femenino";
 
-      string get_fecha_nacimiento() {
-          return fecha_nacimiento;
-      }
+		  ConexionBD cn = ConexionBD();
+		  MYSQL_ROW fila;
+		  MYSQL_RES* resultado;
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
 
-      string get_fecha_incio_labores() {
-          return fecha_inicio_labores;
-      }
+			  string consulta = "SELECT idEmpleado,nombres,apellidos,direccion,telefono,genero,fecha_nacimiento,puesto,fecha_inicio_labores,fecha_ingreso,if(genero=0,'" + M + "','" + F + "')  FROM db_super_mercado.empleados INNER JOIN  db_super_mercado.puestos ON empleados.idpuesto = puestos.idpuesto;";
+			  const char* c = consulta.c_str();
+			  q_estado = mysql_query(cn.getConectar(), c);
+			  if (!q_estado) {
+				  resultado = mysql_store_result(cn.getConectar());
 
-      int get_id_puesto() {
-          return id_puesto;
-      }
+				  cout << "------------------------------Clietes------------------------------" << endl << endl;
+				  while (fila = mysql_fetch_row(resultado)) {
+					  cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4] << ", " << fila[10] << ", " << fila[6] << ", " << fila[7] << ", " << fila[8] << ", " << fila[9]<< endl;
+				  }
 
-public: void menu() {
-    int opc;
+			  }
+			  else {
+				  cout << "error al consultar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexión..." << endl;
+		  }
+		  cn.cerrar_conexion();
+	  }
+	  
+	  void eliminar() {
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+			  string update = "delete from db_super_mercado.empleados  where('" + ID + "')=idEmpleado";
+			  const char* i = update.c_str();
+			  q_estado = mysql_query(cn.getConectar(), i);
+			  if (!q_estado) {
+				  cout << "Eliminacion exitosa..." << endl;
+			  }
+			  else {
+				  cout << "Error al eliminar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexion..." << endl;
+		  }cn.cerrar_conexion();
+	  }
 
-    do {
-        cout << "\n\t\t.:EMPLEADO:.\n\n" << endl;
-        cout << "1. Editar Empleado." << endl;
-        cout << "2. Eliminar Empleado." << endl;
-        cout << "3. Ver Empleado." << endl;
-        cout << "4. Insertar Empleado." << endl;
-        cout << "5.  <-----< Regresar." << endl;
-        cout << "Digite un opcion: "; cin >> opc;
+	  
 
-        switch (opc) {
-        case 1: break;
-        case 2: break;
-        case 3: break;
-        case 4: break;
-        case 5: break;
-        default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
-        }
+	  void actualizar() {
+		  if ((genero == 'M') || (genero == 'm')) {
+			  GeneroBit = '0';
+		  }
+		  else
+		  {
+			  GeneroBit = '1';
+		  }
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+			  fecha_ingreso = "now()";
+			  string update = "update db_super_mercado.empleados set  nombres=('" + nombres + "'),apellidos = ('" + apellidos + "'), direccion = ('" + direccion + "'),telefono =('" + telefono + "'),genero =(" + GeneroBit + "),fecha_nacimiento = ('" + fecha_nacimiento + "'),idpuesto = ('" + id_puesto + "'),fecha_inicio_labores = ('" + fecha_inicio_labores + "') ,fecha_ingreso = (" + fecha_ingreso + ")  where('" + ID + "')=idEmpleado";
+			  const char* i = update.c_str();
+			  q_estado = mysql_query(cn.getConectar(), i);
 
-    } while (opc != 4);
-}
+			  if (!q_estado) {
+				  cout << "Actualizacion exitosa..." << endl;
+			  }
+			  else {
+				  cout << "Error al Actualizar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexion..." << endl;
+		  }cn.cerrar_conexion();
+
+
+	  }
 
 };
 

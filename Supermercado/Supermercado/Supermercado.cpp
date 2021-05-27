@@ -26,7 +26,7 @@ ConexionBD conec = ConexionBD();
 
 int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
 string puesto,marca,ID; //variable para enviar datos al puesto
-string nombre, apellido, nit, telefono, correo, fechaing;
+string nombre, apellido, nit, telefono, correo, fechaing,direccion,fechanacimiento,idpuesto,fechainitlab;
 char genero;
 int main(){
     
@@ -176,10 +176,133 @@ void menu_Empleados(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
+		case 1: {
+			system("cls");
+
+			Empleado E = Empleado();
+			E.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del empleado que desea actualizar: ";
+			cin >> ID;
+			cout << endl;
+			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+			cin.ignore();
+			cout << endl << "INGRESE EL NOMBRE DEL EMPLEADO: " << endl;
+			getline(cin, nombre);
+			cout << endl << "INGRESE EL APELLIDO DEL EMPLEADO: " << endl;
+			getline(cin, apellido);
+			cout << endl << "INGRESE LA DIRECCION DEL EMPLEADO: " << endl;
+			getline(cin, direccion);
+			cout << endl << "INGRESE EL TELEFONO DEL EMPLEADO: " << endl;
+			getline(cin, telefono);
+		CONDICIONEMP:
+			cout << endl << "INGRESE EL GENERO DEL EMPLEADO (F o M): " << endl;
+			cin >> genero;
+			if (genero != 'F') {
+				if (genero != 'f') {
+					if (genero != 'M') {
+						if (genero != 'm') {
+							system("cls");
+							cout << endl << "!!EL DATO INGRESADO ES INVALIDO!!" << endl;
+							system("color 0c");
+							goto CONDICIONEMP;
+						}
+					}
+				}
+			}
+			system("color 02");
+			cin.ignore();
+			cout << endl << "INGRESE LA FECHA DE NACIMIENTO DEL EMPLEADO EN FORMATO AAA-MM-DD: " << endl;
+			getline(cin, fechanacimiento);
+			cout << endl << "INGRESE EL ID DEL PUESTO DEL EMPLEADO: " << endl;
+			getline(cin, idpuesto);
+			cout << endl << "INGRESE LA FECHA DE INICIO DE LABORES DEL EMPLEADO EN FORMATO AAA-MM-DD: " << endl;
+			getline(cin, fechainitlab);
+			cin.ignore();
+
+			Empleado e = Empleado(nombre, apellido, telefono, fechaing, genero, direccion, fechanacimiento, fechainitlab, idpuesto, ID);
+
+			e.actualizar();
+
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		} break;
+		case 2: {
+			system("cls");
+
+			Empleado E = Empleado();
+			E.leer();
+
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del empleado que desea eliminar: ";
+			cin >> ID;
+
+			Empleado e = Empleado(nombre, apellido, telefono, fechaing, genero, direccion, fechanacimiento, fechainitlab, idpuesto,ID);
+			e.eliminar();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+		} break;
+		case 3: {
+
+			Empleado E = Empleado();
+			E.leer();
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+
+		} break;
+		case 4: {
+			cin.ignore();
+			cout << endl << "INGRESE EL NOMBRE DEL EMPLEADO: " << endl;
+			getline(cin, nombre);
+			cout << endl << "INGRESE EL APELLIDO DEL EMPLEADO: " << endl;
+			getline(cin, apellido);
+			cout << endl << "INGRESE LA DIRECCION DEL EMPLEADO: " << endl;
+			getline(cin, direccion);
+			cout << endl << "INGRESE EL TELEFONO DEL EMPLEADO: " << endl;
+			getline(cin, telefono);
+		CONDICIONEMP1:
+			cout << endl << "INGRESE EL GENERO DEL EMPLEADO (F o M): " << endl;
+			cin >> genero;
+			if (genero != 'F') {
+				if (genero != 'f') {
+					if (genero != 'M') {
+						if (genero != 'm') {
+							system("cls");
+							cout << endl << "!!EL DATO INGRESADO ES INVALIDO!!" << endl;
+							system("color 0c");
+							goto CONDICIONEMP1;
+						}
+					}
+				}
+			}
+			system("color 02");
+			cin.ignore();
+			cout << endl << "INGRESE LA FECHA DE NACIMIENTO DEL EMPLEADO EN FORMATO AAA-MM-DD: " << endl;
+			getline(cin, fechanacimiento);
+			cout << endl << "INGRESE EL ID DEL PUESTO DEL EMPLEADO: " << endl;
+			getline(cin, idpuesto);
+			cout << endl << "INGRESE LA FECHA DE INICIO DE LABORES DEL EMPLEADO EN FORMATO AAA-MM-DD: " << endl;
+			getline(cin, fechainitlab);
+			cin.ignore();
+
+			Empleado E = Empleado(nombre,apellido, telefono, fechaing,genero,direccion, fechanacimiento,fechainitlab,idpuesto,ID);
+
+			E.crear();
+
+			system("pause");
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+
+		}break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}
