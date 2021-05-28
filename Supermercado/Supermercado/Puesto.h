@@ -74,9 +74,9 @@ public: Puesto() {
   void eliminar() {
 	  int q_estado;
 	  ConexionBD cn = ConexionBD();
-	  cout << "\n-------------------------------------------------------------------" << endl;
+	 /* cout << "\n-------------------------------------------------------------------" << endl;
 	  cout << "\nIngrese la ID del cliente que desea eliminar: ";
-	  cin >> ID;
+	  cin >> ID;*/
 	  cn.abrir_conexion();
 	  if (cn.getConectar()) {
 		  string update = "delete from db_super_mercado.puestos  where('" + ID + "')=idpuesto";

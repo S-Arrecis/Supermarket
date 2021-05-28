@@ -566,10 +566,83 @@ void menu_Proveedores(){
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu) {
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
+		case 1: {
+			system("cls");
+			Proveedor P = Proveedor();
+			P.leer();
+			cout << endl << "-------------------------------------------------------------------" << endl;
+			cout << endl << "Ingrese la ID del Proveedor que desea actualizar: ";
+			cin >> ID;
+			cout << endl;
+			cout << "-----------A continuacion ingrese los nuevos datos para reemplazar---------" << endl << endl;
+			cin.ignore();
+			cout << "INGRESE EL NOMBRE DEL PROVEEDOR" << endl;
+			getline(cin, nombre);
+			cout << "INGRESE EL NIT DEL PROVEEDOR" << endl;
+			getline(cin, nit);
+			cout << "INGRESE LA DIRECCION DEL PROVEEDOR" << endl;
+			getline(cin, direccion);
+			cout << "INGRESE EL TELEFONO DEL PROVEEDOR" << endl;
+			getline(cin, telefono);
+			cin.ignore();
+
+			
+
+			Proveedor p = Proveedor(nombre, nit, direccion, telefono,ID);
+			p.actualizar();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		} break;
+		case 2: {
+			system("cls");
+
+			Proveedor P = Proveedor();
+			P.leer();
+
+			Proveedor p = Proveedor();
+			p.eliminar();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+		}break;
+		case 3: {
+
+			Proveedor P = Proveedor();
+			P.leer();
+
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+
+		} break;
+		case 4: {
+
+			cin.ignore();
+			cout << "INGRESE EL NOMBRE DEL PROVEEDOR QUE DESEA INSERTAR" << endl;
+			getline(cin, nombre);
+			cout << "INGRESE EL NIT DEL PROVEEDOR QUE DESEA INSERTAR" << endl;
+			getline(cin, nit);
+			cout << "INGRESE LA DIRECCION DEL PROVEEDOR QUE DESEA INSERTAR" << endl;
+			getline(cin, direccion);
+			cout << "INGRESE EL TELEFONO DEL PROVEEDOR QUE DESEA INSERTAR" << endl;
+			getline(cin, telefono);
+			cin.ignore();
+
+			Proveedor P	 = Proveedor(nombre,nit,direccion,telefono,ID);
+
+			P.crear();
+
+			system("pause");
+			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
+			cin >> op1;
+		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+
+
+		} break;
 		case 5: menu_Principal(); break;
 		default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
 		}

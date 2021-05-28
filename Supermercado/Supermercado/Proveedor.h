@@ -1,75 +1,130 @@
-#pragma once
+#include"ConexionBD.h"
+#include<mysql.h>
 #include <iostream>
 using namespace std;
 
 class Proveedor{
 
-private: string Nombre_Proveedor, nit, direccion, telefono;
+private: string Nombre_Proveedor, nit, direccion, telefono, ID;
 
 public: Proveedor() {
 
 }
 
-public: Proveedor(string nombre, string _nit, string _direccion, string _telefono) {
+public: Proveedor(string nombre, string _nit, string _direccion, string _telefono, string id) {
     Nombre_Proveedor = nombre;
     nit = _nit;
     direccion = _direccion;
     telefono = _telefono;
+	ID = id;
 }
+	  void crear() {
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
 
-      //metodos set
 
-public: void set_nombre_Proveedor(string nombres) {
-    Nombre_Proveedor = nombres;
-}
+			  string insert = "INSERT INTO proveedores(proveedores,nit,direccion,telefono) VALUES('" + Nombre_Proveedor + "','" + nit + "','" + direccion + "','" + telefono + "')";
+			  const char* i = insert.c_str();
+			  q_estado = mysql_query(cn.getConectar(), i);
+			  if (!q_estado) {
+				  cout << "Ingreso exitoso..." << endl;
+			  }
+			  else {
+				  cout << "error al ingresar..." << endl;
+			  }
 
-public: void set_Nit(string _nit) {
-    nit = _nit;
-}
-public: void set_Direccion(string _direccion) {
-    direccion = _direccion;
-}
-public: void set_Telefono(string _telefono) {
-    telefono = _telefono;
-}
-      //metodos get
+		  }
+		  else {
+			  cout << "Error en la conexión..." << endl;
+		  }
+		  cn.cerrar_conexion();
 
-public: string get_Nombre_Proveedor() {
-    return Nombre_Proveedor;
-}
-public: string get_Nit() {
-    return nit;
-}
-public: string get_Direccion() {
-    return direccion;
-}
-public: string get_Telefono() {
-    return telefono;
-}
+	  }
+	  
 
-public: void menu() {
-    int opc;
+	  void leer() {
+		  system("cls");
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  MYSQL_ROW fila;
+		  MYSQL_RES* resultado;
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
 
-    do {
-        cout << "\n\t\t.:PROVEEDORES:.\n\n" << endl;
-        cout << "1. Editar Proveedor." << endl;
-        cout << "2. Eliminar Proveedor." << endl;
-        cout << "3. Ver Proveedor." << endl;
-        cout << "4. Insertar Proveedor." << endl;
-        cout << "5.  <-----< Regresar." << endl;
-        cout << "Digite un opcion: "; cin >> opc;
+			  string consulta = "select * from proveedores";
+			  const char* c = consulta.c_str();
+			  q_estado = mysql_query(cn.getConectar(), c);
+			  if (!q_estado) {
+				  resultado = mysql_store_result(cn.getConectar());
 
-        switch (opc) {
-        case 1: break;
-        case 2: break;
-        case 3: break;
-        case 4: break;
-        case 5: break;
-        default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)" << endl;
-        }
+				  cout << "------------------------------Proveedores------------------------------" << endl << endl;
+				  while (fila = mysql_fetch_row(resultado)) {
+					  cout << fila[0] << " " << fila[1] << " " << fila[2] << " " << fila[3] << " " << fila[4] << endl;
+				  }
 
-    } while (opc != 4);
-}
+			  }
+			  else {
+				  cout << "error al consultar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexión..." << endl;
+		  }
+		  cn.cerrar_conexion();
+	  }
+
+	  
+	  void eliminar() {
+		  string ID;
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  cout << "\n-------------------------------------------------------------------" << endl;
+		  cout << "\nIngrese la ID del proveedor que desea eliminar: ";
+		  cin >> ID;
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+			  string update = "delete from db_super_mercado.proveedores  where('" + ID + "') = idproveedores";
+			  const char* i = update.c_str();
+			  q_estado = mysql_query(cn.getConectar(), i);
+			  if (!q_estado) {
+				  cout << "Eliminacion exitosa..." << endl;
+			  }
+			  else {
+				  cout << "Error al eliminar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexion..." << endl;
+		  }cn.cerrar_conexion();
+	  }
+	  
+	  void actualizar() {
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+			  string update = "update db_super_mercado.proveedores set  proveedores = ('" + Nombre_Proveedor + "'),nit = ('" + nit + "'),direccion = ('" + direccion + "'),telefono = ('" + telefono + "')  where('" + ID + "')=idproveedores";
+			  const char* i = update.c_str();
+			  q_estado = mysql_query(cn.getConectar(), i);
+
+			  if (!q_estado) {
+				  cout << "Actualizacion exitosa..." << endl;
+			  }
+			  else {
+				  cout << "Error al Actualizar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexion..." << endl;
+		  }cn.cerrar_conexion();
+
+
+	  }
+
+
+
 
 };
 
