@@ -8,7 +8,7 @@
 #include "Producto.h"
 #include "Proveedor.h"
 #include "Puesto.h"
-
+#include "crear_factura.h"
 using namespace std; 
 
 //l
@@ -21,6 +21,7 @@ void menu_Clientes();
 void menu_Marcas();
 void menu_Productos();
 void menu_Proveedores();
+void menu_factura();
 
 ConexionBD conec = ConexionBD();
 
@@ -33,11 +34,92 @@ int main(){
   
     cout << "\n\t\t\t   .:BIENVENIDO:. \n\n";
 	conec.primera_conexion();
+	//crear_factura m = crear_factura();
+	//m.ingresar_datos();
 	menu_Principal();
 
    return 0;
 }
 
+void menu_factura() {
+
+
+	system("cls");
+
+	do {
+		cout << "\n\t\t.:FACTURA:.\n\n" << endl;//
+		cout << "1. Editar FACTURA." << endl;
+		cout << "2. Eliminar FACTURA." << endl;
+		cout << "3. Ver FACTURA." << endl;
+		cout << "4. Insertar FACTURA." << endl;
+		cout << "5.  <-----< Regresar." << endl;
+		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
+
+		switch (opcion_sub_menu){
+		case 1:  break;
+		case 2: {
+			int res;
+			do {
+				system("cls");
+				cout << "\n\n\t\t.:Eliminar Facturas:.\n\n" << endl;
+				cout << "1. Elimiar Detalle " << endl;
+				cout << "2. Eliminar Factura. " << endl;
+				cout << "3. <----- Regresar. " << endl;
+				cout << "\nDigite una opcion: "; cin>> res;
+
+				switch (res) {
+					
+				case 1: {
+					crear_factura m = crear_factura(); 
+					m.eliminarVentaDetalle(); cout << "\n\n"; system("pause");
+				
+				} break;
+				case 2: {
+					crear_factura m = crear_factura();
+					m.ellimiartodo(); cout << "\n\n"; system("pause");
+				}break;
+				case 3: menu_factura(); break;
+
+				default: cout << "Opcion no valida..\n\n"; system("pause"); menu_factura();
+
+				}
+			
+			} while (res !=3);
+		
+		
+		} break;
+		case 3: {
+			crear_factura m = crear_factura();
+			m.consultarVenta();
+			m.consultarVentaDetalle();
+			cout << "\n\n";
+			system("pause");
+			menu_factura();
+		
+		} break;
+		case 4: {
+			char res;
+			crear_factura m = crear_factura();
+			m.ingresar_datos(); cout << "\n\n";system("pause"); 
+			
+			cout << "\nDesea agregar otra compra (s/n): "; cin >> res;
+			switch (res) {
+			case 's':
+			case 'S': m.insertar_Venta_Detalle(); break;
+			case 'n':
+			case 'N': system("cls"); menu_factura();
+			}
+			menu_factura(); } 
+		break;
+		case 5: menu_Principal(); break;
+		default: cout << "Error....\n\n"; system("pause"); menu_factura();
+		}
+
+	} while (opcion_sub_menu != 5);
+
+
+	
+}
 void menu_Principal(){
 	system("cls");
 
@@ -51,8 +133,9 @@ void menu_Principal(){
 		cout << "\t\tClientes.............................3" << endl;
 		cout << "\t\tMarcas...............................4" << endl;
 		cout << "\t\tProductos............................5" << endl;
-		cout << "\t\tProveedores..........................6" << endl;		
-		cout << "\t\tSalir................................7" << endl;
+		cout << "\t\tProveedores..........................6" << endl;
+		cout << "\t\tFacturas.............................7" << endl;
+		cout << "\t\tSalir................................8" << endl;
 		cout << "\n\tDigite una opcion: ";
 		cin >> opcion_menu;
 
@@ -64,12 +147,13 @@ void menu_Principal(){
 			case 4: menu_Marcas(); break;
 			case 5: menu_Productos(); break;
 			case 6: menu_Proveedores(); break;
-			case 7: system("cls"); cout << "Saliendo del Sistema...\n\n\n"; Sleep(1000); system("pause"); exit(1); break;
+			case 7: menu_factura(); break;
+			case 8: system("cls"); cout << "Saliendo del Sistema...\n\n\n"; Sleep(1000); system("pause"); exit(1); break;
 
 			default: cout << " (TwT) Opcion no valida intenta otra vez.. (TwT)\n\n\n" << endl; system("pause");
 		}
 
-	} while (opcion_menu !=7);
+	} while (opcion_menu !=8);
 	
 }
 
