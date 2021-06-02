@@ -87,6 +87,47 @@ public:
 		}
 		cn.cerrar_conexion();
 	}
+
+	string buscarCliente(string nit_cliente) {
+		string id;
+		int q_estado;
+		M = "Masculino";
+		F = "Femenino";
+
+		ConexionBD cn = ConexionBD();
+		MYSQL_ROW fila;
+		MYSQL_RES* resultado;
+		cn.abrir_conexion();
+		if (cn.getConectar()) {
+
+			string consulta = "SELECT *, if(genero=0,'" + M + "','" + F + "')  FROM clientes WHERE (NIT='"+nit_cliente+"')";
+			const char* c = consulta.c_str();
+			q_estado = mysql_query(cn.getConectar(), c);
+			if (!q_estado) {
+				resultado = mysql_store_result(cn.getConectar());
+
+				cout << "\n------------------------------Clietes Encontrado------------------------------" << endl << endl;
+				while (fila = mysql_fetch_row(resultado)) {
+					cout << fila[1] << ", " << fila[2] << ", " << fila[3] << ", "  << fila[5] << ", " << fila[6] << endl;
+					id = fila[0];
+				}
+
+				if (id == "") {
+					id = "NULL";
+				}
+				
+				return id;
+			}
+			else {
+				cout << "error al consultar..." << endl;
+			}
+		}
+		else {
+			cout << "Error en la conexión..." << endl;
+		}
+		cn.cerrar_conexion();
+	}
+
 	void eliminar() {
 		int q_estado;
 		ConexionBD cn = ConexionBD();

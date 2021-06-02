@@ -86,15 +86,16 @@ public: string get_Fecha_Ingreso() {
     return fecha_ingreso;
 }
 
+      
 
  void insertar() {
-     
+     fecha_ingreso = "now()";
      int q_estado;
      ConexionBD cn = ConexionBD();
        cn.abrir_conexion();
      if (cn.getConectar()) {
 
-         string insert = "INSERT INTO `db_super_mercado`.`productos` (`producto`, `idmarca`, `descripcion`, `|precio_costo`, `precio_venta`, `existencia`, `fehca_ingreso`) VALUES('" + productos + "','"+id_marca+"','" + descripcion + "','" + precio_costo + "','" + precio_venta + "','" + existencia + "','" + fecha_ingreso + "'  )";
+         string insert = "INSERT INTO `db_super_mercado`.`productos` (`producto`, `idmarca`, `descripcion`, `|precio_costo`, `precio_venta`, `existencia`, `fehca_ingreso`) VALUES('" + productos + "','"+id_marca+"','" + descripcion + "','" + precio_costo + "','" + precio_venta + "','" + existencia + "'," + fecha_ingreso + "  )";
          const char* i = insert.c_str();
          q_estado = mysql_query(cn.getConectar(), i);
          

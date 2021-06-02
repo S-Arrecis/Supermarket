@@ -22,6 +22,7 @@ void menu_Marcas();
 void menu_Productos();
 void menu_Proveedores();
 void menu_factura();
+void agregar_un_cliente(string);
 
 ConexionBD conec = ConexionBD();
 
@@ -89,6 +90,7 @@ void menu_factura() {
 		
 		} break;
 		case 3: {
+			system("cls");
 			crear_factura m = crear_factura();
 			m.consultarVenta();
 			m.consultarVentaDetalle();
@@ -98,18 +100,41 @@ void menu_factura() {
 		
 		} break;
 		case 4: {
+			system("cls");
+			Cliente C1 = Cliente();
+			string nit, empleado, id;
+			id = "NULL";
 			char res;
-			crear_factura m = crear_factura();
-			m.ingresar_datos(); cout << "\n\n";system("pause"); 
-			
-			cout << "\nDesea agregar otra compra (s/n): "; cin >> res;
-			switch (res) {
-			case 's':
-			case 'S': m.insertar_Venta_Detalle(); break;
-			case 'n':
-			case 'N': system("cls"); menu_factura();
+			cout << "\n\t\t.:DATOS DE FACTURACION:. \n\n";
+		
+			cout << "Digite el Nit del Cliente: "; cin >> nit;
+			id = C1.buscarCliente(nit);
+			if (id == "NULL") {
+				system("cls");
+				cout << "Cliente con el NIT ( "+nit+") no esta registrado en el sistema..\n";
+				Sleep(2000);
+				cout << "Comenzando proceso de registro del nuevo cliente con el nit ( "+nit+"). \n\n";
+				Sleep(2000);
+				system("pause");
+				fflush(stdin);
+				agregar_un_cliente(nit);
 			}
-			menu_factura(); } 
+			else {
+				cout << "\nDite el ID del Empleado: "; cin >> empleado;
+				crear_factura m = crear_factura();
+				m.ingresar_datos(id, empleado);
+				cout << "\n\n";
+
+				cout << "\nDesea agregar otra compra (s/n): "; cin >> res;
+				switch (res) {
+				case 's':
+				case 'S': m.insertar_Venta_Detalle(); break;
+				case 'n':
+				case 'N': system("cls"); menu_factura();
+				}
+				menu_factura();
+			}
+			 } 
 		break;
 		case 5: menu_Principal(); break;
 		default: cout << "Error....\n\n"; system("pause"); menu_factura();
@@ -394,7 +419,44 @@ void menu_Empleados(){
 	} while (opcion_sub_menu != 4);
 
 }
+void agregar_un_cliente(string nit) {
+	cin.ignore();
+	cout << endl << "INGRESE EL NOMBRE DEL CLIENTE: ";
+	getline(cin, nombre);
+	cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: ";
+	getline(cin, apellido);
+	//cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
+	//getline(cin, nit);
 
+CONDICION1:
+	cout << endl << "INGRESE EL GENERO DEL CLIENTE (F o M): ";
+	cin >> genero;
+
+	if (genero != 'F') {
+		if (genero != 'f') {
+			if (genero != 'M') {
+				if (genero != 'm') {
+					system("cls");
+					cout << endl << "!!EL DATO INGRESADO ES INVALIDO!!" << endl;
+					system("color 0c");
+					goto CONDICION1;
+				}
+			}
+		}
+	}
+	system("color 02");
+
+	cin.ignore();
+	cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: ";
+	getline(cin, telefono);
+	cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: ";
+	getline(cin, correo);
+	cin.ignore();
+
+	Cliente C = Cliente(nombre, apellido, telefono, fechaing, genero, nit, correo, ID);
+
+	C.crear();
+}
 void menu_Clientes(){
 	system("cls");
 	do {
@@ -491,15 +553,19 @@ void menu_Clientes(){
 		} break;
 		case 4: {
 			cin.ignore();
-			cout<<endl << "INGRESE EL NOMBRE DEL CLIENTE: " << endl;
+			/*cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
+			getline(cin, nit);
+			agregar_un_cliente(nit);*/
+			
+			cout<<endl << "INGRESE EL NOMBRE DEL CLIENTE: ";
 			getline(cin,nombre);
-			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: " << endl;
+			cout << endl << "INGRESE EL APELLIDO DEL CLIENTE: ";
 			getline(cin, apellido);
-			cout << endl << "INGRESE EL NIT DEL CLIENTE: " << endl;
+			cout << endl << "INGRESE EL NIT DEL CLIENTE: ";
 			getline(cin, nit);
 
 		CONDICION1:
-			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F o M): " << endl;
+			cout << endl << "INGRESE EL GENERO DEL CLIENTE (F o M): ";
 			cin >> genero;
 
 			if (genero != 'F') {
@@ -517,16 +583,17 @@ void menu_Clientes(){
 			system("color 02");
 
 			cin.ignore();
-			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: " << endl;
+			cout << endl << "INGRESE EL TELEFONO DEL CLIENTE: ";
 			getline(cin, telefono);
-			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: " << endl;
+			cout << endl << "INGRESE EL CORREO ELECTRONICO DEL CLIENTE: ";
 			getline(cin, correo);
 			cin.ignore();
 
 			Cliente C = Cliente(nombre,apellido,telefono,fechaing,genero,nit,correo,ID);
 
 			C.crear();
-
+			
+			cout << "\n" << endl;
 			system("pause");
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
@@ -621,7 +688,7 @@ void menu_Productos(){
 			cout << "Digite el Costo del producto ( " + producto + " ): "; getline(cin, precio_costo);
 			cout << "Digite el Costo de venta del producto ( " + producto + " ): "; getline(cin, precio_venta);
 			cout << "Digte cuantas existencias tenemos del producto ( " + producto + " ): "; cin >> existencia;
-			cout << "Digite la fecha cuando ingreso el producto ( " + producto + " ) en formato YYYY-MM-DD "; cin >> fecha_ingreso;
+			//cout << "Digite la fecha cuando ingreso el producto ( " + producto + " ) en formato YYYY-MM-DD "; cin >> fecha_ingreso;
 
 			Producto p = Producto(producto, id, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso);
 			p.insertar();

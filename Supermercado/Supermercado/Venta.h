@@ -44,6 +44,7 @@ public: void insertar() {
                   cout << "Ingreso exitoso..." << endl;
               }
               else {
+                  cout << "\n\t" << insert;
                   cout << "error al ingresar..." << endl;
               }
 

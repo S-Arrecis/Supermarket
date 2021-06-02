@@ -8,6 +8,7 @@
 #include "Venta.h"
 #include "venta_Detalle.h"
 
+
 using namespace std;
 
 class crear_factura{
@@ -17,24 +18,25 @@ class crear_factura{
 	private:
 		char serie;
 	private:
-		string fecha_factura, fecha_ingreso, cantidad, id, No_factura, id_cliente, id_empleado, venta, id_producto, SERIE,precio, buscar;
+		string fecha_factura, fecha_ingreso, cantidad, id, No_factura, nit_cliente, id_empleado, venta, id_producto, SERIE,precio, buscar;
 	private: float precio_unitario;
 
-		   char* No_Factura;
+		  // char* No_Factura;
 	public: crear_factura() {
 
 	}
 
-public: void ingresar_datos() {
+public: void ingresar_datos(string id_cliente,string id_empleado) {
 	system("cls");
+	/*
 	cout << "\n\t\t.:DATOS DE FACTURACION:. \n\n";
 	//cout << "Digite el id venta: "; cin >> id;
 	//cin.ignore();
-	cout << "Digite la Serie: "; cin >> SERIE;
+	//cout << "Digite la Serie: "; cin >> SERIE;
 
-	cout << "Digite el ID del Cliente: "; cin >> id_cliente;
+	cout << "Digite el Nit del Cliente: "; cin >> nit_cliente;
 
-	cout << "Dite el ID del Empleado: "; cin >> id_empleado;
+	cout << "\nDite el ID del Empleado: "; cin >> id_empleado;*/
 
 	Venta v1 = Venta();
 	No_factura= v1.factura();
@@ -43,7 +45,7 @@ public: void ingresar_datos() {
 
 	No_factura = to_string(aux);
 
-	 v1 = Venta(No_factura, SERIE, fecha_factura, id_cliente, id_empleado, fecha_ingreso);
+	 v1 = Venta(No_factura,"A", fecha_factura, id_cliente, id_empleado, fecha_ingreso);
 	v1.insertar();
 	id=v1.ver();
 	insertar_Venta_Detalle();
