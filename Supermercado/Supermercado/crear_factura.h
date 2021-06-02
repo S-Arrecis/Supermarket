@@ -25,6 +25,7 @@ class crear_factura{
 	public: crear_factura() {
 
 	}
+		  
 
 public: void ingresar_datos(string id_cliente,string id_empleado) {
 	system("cls");
@@ -44,11 +45,10 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 	aux += 1;
 
 	No_factura = to_string(aux);
-
 	 v1 = Venta(No_factura,"A", fecha_factura, id_cliente, id_empleado, fecha_ingreso);
 	v1.insertar();
 	id=v1.ver();
-	insertar_Venta_Detalle();
+	//insertar_Venta_Detalle();
 	/*
 	cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
 	cout << "ingresa ID producto: "; cin >> id_producto;
@@ -60,14 +60,15 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 	cout << "\n\n";
 	system("pause");*/
 }
-	  void insertar_Venta_Detalle() {
+	  void insertar_Venta_Detalle(string id_factura ,string id_producto,string cantidad,string precio) {
 
-		  cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
-		  cout << "ingresa ID producto: "; cin >> id_producto;
-		  cout << "ingrese cantidad: "; cin >> cantidad;
-		  cout << "digite precio: "; cin >> precio;
-
-		  venta_Detalle v2 = venta_Detalle(id, id_producto, cantidad, precio);
+		  //cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
+		  //cout << "ingresa ID producto: "; cin >> id_producto;
+		  //cout << "ingrese cantidad: "; cin >> cantidad;
+		  //cout << "digite precio: "; cin >> precio;
+		  
+		
+		  venta_Detalle v2 = venta_Detalle(id_factura, id_producto, cantidad, precio);
 		  v2.insertar();
 		  cout << "\n\n";
 		  system("pause");

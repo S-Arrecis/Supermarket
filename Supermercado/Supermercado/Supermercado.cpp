@@ -120,15 +120,44 @@ void menu_factura() {
 				agregar_un_cliente(nit);
 			}
 			else {
+				string total = "NULL";
+				
 				cout << "\nDite el ID del Empleado: "; cin >> empleado;
 				crear_factura m = crear_factura();
 				m.ingresar_datos(id, empleado);
 				cout << "\n\n";
-
+				string producto, id, cantidad;
+				cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
+				Producto p1 = Producto();
+				p1.ver();
+				cout << endl;
+				cout << "ingresa ID producto: "; cin >> producto;
+				id = p1.buscarProducto(producto);
+				cout << "ingrese cantidad: "; cin >> cantidad;
+				total = p1.buscarPrecioProducto(producto,cantidad);
+				
+				if (total == "NULL") {
+					system("cls");
+					cout << "ERROR\n";
+					Sleep(2000);
+					cout << "Estableciendo nueva conexion.. \n\n";
+					Sleep(2000);
+					system("pause");
+					fflush(stdin);
+					menu_Principal();
+				}
+				else {
+					Venta v1 = Venta();
+					string No_factura = v1.factura();
+					
+					crear_factura venta = crear_factura();
+					venta.insertar_Venta_Detalle(No_factura,producto, cantidad, total);
+					
+				}
 				cout << "\nDesea agregar otra compra (s/n): "; cin >> res;
 				switch (res) {
 				case 's':
-				case 'S': m.insertar_Venta_Detalle(); break;
+				case 'S':// m.insertar_Venta_Detalle(); break;
 				case 'n':
 				case 'N': system("cls"); menu_factura();
 				}

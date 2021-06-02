@@ -175,6 +175,86 @@ public: string get_Fecha_Ingreso() {
      cn.cerrar_conexion();
  }
 
+ string buscarProducto(string id_producto) {
+     string id;
+     int q_estado;
+    
+
+     ConexionBD cn = ConexionBD();
+     MYSQL_ROW fila;
+     MYSQL_RES* resultado;
+     cn.abrir_conexion();
+     if (cn.getConectar()) {
+
+         string consulta = "SELECT *FROM productos where (idproductos = '" +id_producto +"' )";
+         const char* c = consulta.c_str();
+         q_estado = mysql_query(cn.getConectar(), c);
+         if (!q_estado) {
+             resultado = mysql_store_result(cn.getConectar());
+
+             cout << "\n------------------------------Producto Encontrado------------------------------" << endl << endl;
+             while (fila = mysql_fetch_row(resultado)) {
+                 cout << fila[0] << ", " << fila[1] << ", " << fila[3] << ", " << fila[6] << ", " << endl;
+                 id = fila[0];
+             }
+
+             if (id == "") {
+                 id = "NULL";
+             }
+
+             return id;
+         }
+         else {
+             cout << "error al consultar..." << endl;
+         }
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
+ }
+
+ string buscarPrecioProducto(string id_producto,string cantidad) {
+     string id,precio;
+     int q_estado;
+
+
+     ConexionBD cn = ConexionBD();
+     MYSQL_ROW fila;
+     MYSQL_RES* resultado;
+     cn.abrir_conexion();
+     if (cn.getConectar()) {
+
+         string consulta = "SELECT idproductos,producto,precio_venta,('"+cantidad+"' * productos.precio_venta) FROM productos where (idproductos ='"+id_producto+"')";
+         const char* c = consulta.c_str();
+         q_estado = mysql_query(cn.getConectar(), c);
+         if (!q_estado) {
+             resultado = mysql_store_result(cn.getConectar());
+
+             cout << "\n------------------------------DETAS DE LA COMPRA------------------------------" << endl << endl;
+             cout << "ID PRODUCTO"<< ", " << "NOMBRE PRODUCTO" << ", " << " PRECIO " <<"\tTOTAL VENTA"<< endl;
+             while (fila = mysql_fetch_row(resultado)) {
+                 cout <<"     " <<fila[0] << ",\t\t " << fila[1] << ",\t" << fila[2] << ",\t " << fila[3]  << endl;
+                 precio = fila[2];
+             }
+
+             if (precio == "") {
+                 precio = "NULL";
+             }
+
+             return precio;
+         }
+         else {
+             cout << "\t" << consulta;
+             cout << "error al consultar..." << endl;
+         }
+     }
+     else {
+         cout << "Error en la conexión..." << endl;
+     }
+     cn.cerrar_conexion();
+ }
+
  void eliminar() {
      int q_estado;
      ConexionBD cn = ConexionBD();
