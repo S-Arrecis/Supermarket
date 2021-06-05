@@ -13,6 +13,7 @@
 
 using namespace std;
 ofstream imp("factura.txt");
+char resp;
 typedef std::basic_ifstream<TCHAR> tifstream;
 typedef std::basic_string<TCHAR> tstring;
 class crear_factura{
@@ -99,19 +100,18 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  while (fila = mysql_fetch_row(resultado)) {
 					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4] << ", " << fila[5] << ", " << fila[6] << endl;
 					  system("cls");
+					  cout << "***********************************************************" << endl;
+					  cout << " No Factura: " << fila[1] << "          Serie: " << fila[2] << "        Fecha: " << fila[3] << endl << endl;
+					  cout << " Cliente: " << fila[4] << "                         Empleado: " << fila[5] << endl << endl;
 					  cout << "**********************************************************" << endl;
-					  cout << " No Factura: " << fila[1] << endl;
-					  cout << " Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
-					  cout << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl<<endl;
-					  cout << "**********************************************************" << endl;
-					  cout << " Cantidad\t\tDescripcion\t\tTotal " << endl<<endl;
+					  cout << " Cantidad             Descripcion               Total " << endl << endl;
 
-					  imp << "**********************************************************" << endl;
-					  imp << " No Factura: " << fila[1] << "\t\t Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
-					  imp << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl << endl;
-					  imp << "**********************************************************" << endl;
-					  imp << " Cantidad\t\tDescripcion\t\tTotal " << endl << endl;
-					  
+					  imp << "***********************************************************" << endl;
+					  imp << " No Factura: " << fila[1] << "          Serie: " << fila[2] << "        Fecha: " << fila[3] << endl << endl;
+					  imp << " Cliente: " << fila[4] << "                           Empleado: " << fila[5] << endl << endl;
+					  imp << "***********************************************************" << endl;
+					  imp << " Cantidad             Descripcion                   Total " << endl << endl;
+				
 				  }
 			  }
 			  else {
@@ -145,17 +145,17 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  while (fila = mysql_fetch_row(resultado)) {
 					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4] << ", " << fila[5] << ", " << fila[6] << endl;
 					  system("cls");
+					  cout << "***********************************************************" << endl;
+					  cout << " No Factura: " << fila[1] << "          Serie: " << fila[2] << "        Fecha: " << fila[3] << endl << endl;
+					  cout << " Cliente: " << fila[4] << "                         Empleado: " << fila[5] << endl << endl;
 					  cout << "**********************************************************" << endl;
-					  cout << " No Factura: " << fila[1] << "\t\t Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
-					  cout << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl << endl;
-					  cout << "**********************************************************" << endl;
-					  cout << " Cantidad\t\tDescripcion\t\tTotal " << endl << endl;
+					  cout << " Cantidad             Descripcion               Total " << endl << endl;
 
-					  imp << "**********************************************************" << endl;
-					  imp << " No Factura: " << fila[1] << "\t\t Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
-					  imp << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl << endl;
-					  imp << "**********************************************************" << endl;
-					  imp << " Cantidad\t\tDescripcion\t\tTotal " << endl << endl;
+					  imp << "***********************************************************" << endl;
+					  imp << " No Factura: " << fila[1] << "          Serie: " << fila[2] << "        Fecha: " << fila[3] << endl << endl;
+					  imp << " Cliente: " << fila[4] << "                           Empleado: " << fila[5] << endl << endl;
+					  imp << "***********************************************************" << endl;
+					  imp << " Cantidad             Descripcion                   Total " << endl << endl;
 
 				  }
 			  }
@@ -188,9 +188,9 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  while (fila = mysql_fetch_row(resultado)) {
 					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4]  << endl;
 
-					  cout <<" "<<fila[3]<< "\t\t\t" << fila[2]<< "\t\t\t" << fila[4]<< endl;
+					  cout <<" "<<fila[3]<< "                     " << fila[2]<< "                     " << fila[4]<< endl;
 
-					  imp << " " << fila[3] << "\t\t\t" << fila[2] << "\t\t\t" << fila[4] << endl;
+					  imp << " " << fila[3] << "                         " << fila[2] << "                               " << fila[4] << endl;
 
 				  }
 				
@@ -201,15 +201,23 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  cout << "**********************************************************" << endl;
 
 				  imp << endl << endl << endl << endl;
-				  imp << "                   Gracias por tu compra					" << endl;
-				  imp << "                       Vuelve Pronto						" << endl << endl;
+				  imp << "                      Gracias por tu compra					" << endl;
+				  imp << "                              Vuelve Pronto						" << endl << endl;
 				  imp << "**********************************************************" << endl;
 
-				  
-				 
-				  imprimir();
 				
+				
+				  imp.close();
+				  cout << "\nDesea imprimir la factura (S / N): ";
+				  cin >> resp;
+				  if (resp == 'S' || resp == 's') {
+
+					  imprimir();
+
+				  }
 			
+
+
 			  }
 
 			  else {
@@ -241,9 +249,9 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  while (fila = mysql_fetch_row(resultado)) {
 					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4]  << endl;
 
-					  cout << " " << fila[3] << "\t\t\t" << fila[2] << "\t\t\t" << fila[4] << endl;
+					  cout << " " << fila[3] << "                     " << fila[2] << "                     " << fila[4] << endl;
 
-					  imp << " " << fila[3] << "\t\t\t" << fila[2] << "\t\t\t" << fila[4] << endl;
+					  imp << " " << fila[3] << "                         " << fila[2] << "                               " << fila[4] << endl;
 
 				  }
 
@@ -254,11 +262,19 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  cout << "**********************************************************" << endl;
 
 				  imp << endl << endl << endl << endl;
-				  imp << "                   Gracias por tu compra					" << endl;
-				  imp << "                       Vuelve Pronto						" << endl << endl;
+				  imp << "                      Gracias por tu compra					" << endl;
+				  imp << "                              Vuelve Pronto						" << endl << endl;
 				  imp << "**********************************************************" << endl;
+				  imp.close();
+				
+				  cout << "\nDesea imprimir la factura (S / N): ";
+				  cin >> resp;
+				  if (resp == 'S' || resp == 's') {
 
+					  imprimir();
 
+				  }
+				
 			  }
 			  else {
 				  cout << "error al consultar..." << endl;
@@ -287,11 +303,11 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 			  string  insertar = "DELETE FROM ventas_detalle  WHERE (idventas_detalle = '" + buscar + "')";
 			  const char* i = insertar.c_str();
 			  q_estado = mysql_query(cn.getConectar(), i);
+				  cout << " xxx Error al Eliminar  xxx" << endl;
 			  if (!q_estado) {
 				  cout << "Eliminacion  Exitosa ..." << endl;
 			  }
 			  else {
-				  cout << " xxx Error al Eliminar  xxx" << endl;
 			  }
 		  }
 		  else {
