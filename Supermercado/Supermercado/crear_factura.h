@@ -1,6 +1,4 @@
 #pragma once
-#include <conio.h>
-#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -10,10 +8,13 @@
 #include "Venta.h"
 #include "venta_Detalle.h"
 #include <fstream>
+#include"Impresion.h"
 
 
 using namespace std;
 ofstream imp("factura.txt");
+typedef std::basic_ifstream<TCHAR> tifstream;
+typedef std::basic_string<TCHAR> tstring;
 class crear_factura{
 
 	
@@ -99,7 +100,8 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4] << ", " << fila[5] << ", " << fila[6] << endl;
 					  system("cls");
 					  cout << "**********************************************************" << endl;
-					  cout << " No Factura: " << fila[1] << "\t\t Serie: " << fila[2] <<"\t Fecha: " << fila[3]<< endl<<endl;
+					  cout << " No Factura: " << fila[1] << endl;
+					  cout << " Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
 					  cout << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl<<endl;
 					  cout << "**********************************************************" << endl;
 					  cout << " Cantidad\t\tDescripcion\t\tTotal " << endl<<endl;
@@ -158,8 +160,13 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  imp << "                       Vuelve Pronto						" << endl << endl;
 				  imp << "**********************************************************" << endl;
 
-	
+				  
+				 
+				  imprimir();
+				
+			
 			  }
+
 			  else {
 				  cout << "error al consultar..." << endl;
 			  }
@@ -255,6 +262,19 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 		  cn.cerrar_conexion();
 	  }
 
+	  void imprimir()
+	  {
+		  Impresion I = Impresion();
+
+		  
+		  string texto;
+
+		  tifstream in(TEXT("factura.txt"));  /*acá va escrito el nombre del archivo que quieres imprimir */
+		  I.PrintFile(in);
+		  in.close();
+
+	  }
+	  
 	  void ellimiartodo() {
 
 		  eliminarVentaDetalle1();
