@@ -122,6 +122,51 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 		  cn.cerrar_conexion();
 	  }
 
+	  void mostrarCompra(string buscar) {
+
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  MYSQL_ROW fila;
+		  MYSQL_RES* resultado;
+		  ///cout << "Digite el numero de factura que desea visualizar: "; cin >> buscar;
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+
+			  string consulta = "select ventas.idventas,ventas.nofactura,ventas.serie,ventas.fechafactura,clientes.nombres,empleados.nombres,ventas.fecha_ingreso FROM db_super_mercado.ventas INNER JOIN db_super_mercado.clientes on ventas.idcliente = clientes.idCliente INNER JOIN db_super_mercado.empleados  on ventas.idempleado = empleados.idEmpleado  where  ventas.idventas = ('" + buscar + "')";
+
+			  const char* c = consulta.c_str();
+			  q_estado = mysql_query(cn.getConectar(), c);
+			  // cout << "------------------------------Ventas------------------------------\n" << endl;
+
+			  if (!q_estado) {
+				  resultado = mysql_store_result(cn.getConectar());
+				  while (fila = mysql_fetch_row(resultado)) {
+					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4] << ", " << fila[5] << ", " << fila[6] << endl;
+					  system("cls");
+					  cout << "**********************************************************" << endl;
+					  cout << " No Factura: " << fila[1] << "\t\t Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
+					  cout << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl << endl;
+					  cout << "**********************************************************" << endl;
+					  cout << " Cantidad\t\tDescripcion\t\tTotal " << endl << endl;
+
+					  imp << "**********************************************************" << endl;
+					  imp << " No Factura: " << fila[1] << "\t\t Serie: " << fila[2] << "\t Fecha: " << fila[3] << endl << endl;
+					  imp << " Cliente: " << fila[4] << "\t\t\t Empleado: " << fila[5] << endl << endl;
+					  imp << "**********************************************************" << endl;
+					  imp << " Cantidad\t\tDescripcion\t\tTotal " << endl << endl;
+
+				  }
+			  }
+			  else {
+				  cout << "error al consultar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexión..." << endl;
+		  }
+		  cn.cerrar_conexion();
+	  }
+
 	  void consultarVentaDetalle() {
 		  //cout << "\n\n\n";
 		  int q_estado;
@@ -159,6 +204,54 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 				  imp << "**********************************************************" << endl;
 
 	
+			  }
+			  else {
+				  cout << "error al consultar..." << endl;
+			  }
+		  }
+		  else {
+			  cout << "Error en la conexión..." << endl;
+		  }
+		  cn.cerrar_conexion();
+	  }
+
+	  void mostrarVentaDetalle(string buscar) {
+		  //cout << "\n\n\n";
+		  int q_estado;
+		  ConexionBD cn = ConexionBD();
+		  MYSQL_ROW fila;
+		  MYSQL_RES* resultado;
+		  cn.abrir_conexion();
+		  if (cn.getConectar()) {
+
+			  string consulta = "Select ventas_detalle.idventas_detalle,ventas.idventas,productos.producto,ventas_detalle.cantidad,ventas_detalle.precio_unitario from db_super_mercado.ventas_detalle INNER JOIN db_super_mercado.ventas on ventas_detalle.idventa = ventas.idventas INNER JOIN db_super_mercado.productos on ventas_detalle.idproducto = productos.idproductos where   ventas.idventas = ('" + buscar + "')";
+			  const char* c = consulta.c_str();
+			  q_estado = mysql_query(cn.getConectar(), c);
+			  if (!q_estado) {
+				  resultado = mysql_store_result(cn.getConectar());
+
+				  // cout << "------------------------------Venta DETALLE------------------------------\n" << endl;
+				  while (fila = mysql_fetch_row(resultado)) {
+					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4]  << endl;
+
+					  cout << " " << fila[3] << "\t\t\t" << fila[2] << "\t\t\t" << fila[4] << endl;
+
+					  imp << " " << fila[3] << "\t\t\t" << fila[2] << "\t\t\t" << fila[4] << endl;
+
+				  }
+
+
+				  cout << endl << endl << endl << endl;
+				  cout << "                   Gracias por tu compra					" << endl;
+				  cout << "                       Vuelve Pronto						" << endl << endl;
+				  cout << "**********************************************************" << endl;
+
+				  imp << endl << endl << endl << endl;
+				  imp << "                   Gracias por tu compra					" << endl;
+				  imp << "                       Vuelve Pronto						" << endl << endl;
+				  imp << "**********************************************************" << endl;
+
+
 			  }
 			  else {
 				  cout << "error al consultar..." << endl;
