@@ -390,5 +390,28 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 		  eliminarVenta1();
 	  }
 
+
+	  void actualizar_datos(string id_cliente, string id_empleado,string ID) {
+		  system("cls");
+		 
+
+		  Venta v1 = Venta();
+		
+		  v1 = Venta(No_factura, "A", fecha_factura, id_cliente, id_empleado, fecha_ingreso);
+		  v1.actualizar();
+		  id = v1.ver();
+	
+	  }
+	  void actualizar_Venta_Detalle(string id_factura, string id_producto, string cantidad, string precio) {
+
+		
+
+		  venta_Detalle v2 = venta_Detalle(id_factura, id_producto, cantidad, precio);
+		  v2.insertar();
+		  cout << "\n\n";
+		  system("pause");
+	  }
+
+
 };
 
