@@ -24,10 +24,11 @@ void menu_Productos();
 void menu_Proveedores();
 void menu_factura();
 void agregar_un_cliente(string);
+void agregar_al_carrito();
 
 ConexionBD conec = ConexionBD();
 
-int opcion_menu, opcion_sub_menu, op1; // variables para las opciones de los switch
+int opcion_menu, opcion_sub_menu, op1,items=1; // variables para las opciones de los switch
 string puesto,marca,ID; //variable para enviar datos al puesto
 string nombre, apellido, nit, telefono, correo, fechaing,direccion,fechanacimiento,idpuesto,fechainitlab;
 char genero;
@@ -41,6 +42,58 @@ int main(){
 	menu_Principal();
 
    return 0;
+}
+
+void agregar_al_carrito() {
+	string No_factura;
+	system("cls");
+	string producto, cantidad,id;
+	id = "NULL";
+	char res;
+	string total = "NULL";
+	Producto p1 = Producto();
+	p1.ver();
+	cout << "\t\t\t\t\tItems agregados: " << items;
+	cout << endl;
+	cout << "ingresa ID producto: "; cin >> producto;
+	id = p1.buscarProducto(producto);
+	cout << "ingrese cantidad: "; cin >> cantidad;
+	total = p1.buscarPrecioProducto(producto, cantidad);
+
+	if (total == "NULL") {
+		system("cls");
+		cout << "ERROR\n";
+		Sleep(2000);
+		cout << "Estableciendo nueva conexion.. \n\n";
+		Sleep(2000);
+		system("pause");
+		fflush(stdin);
+		menu_Principal();
+	}
+	else {
+		Venta v1 = Venta();
+		No_factura = v1.factura();
+
+		crear_factura venta = crear_factura();
+		venta.insertar_Venta_Detalle(No_factura, producto, cantidad, total);
+		items ++;
+	}
+	cout << "\nDesea agregar otra compra (s/n): "; cin >> res;
+	switch (res) {
+	case 's':
+	case 'S': agregar_al_carrito(); break;
+	case 'n':
+	case 'N': system("cls"); break;
+	}
+	system("cls");
+	crear_factura mostrar = crear_factura();
+	mostrar.mostrarCompra(No_factura);
+	mostrar.mostrarVentaDetalle(No_factura);
+	cout << "\n\n\n";
+	system("pause");
+	menu_factura();
+
+
 }
 
 void menu_factura() {
@@ -121,6 +174,7 @@ void menu_factura() {
 				agregar_un_cliente(nit);
 			}
 			else {
+
 				string total = "NULL";
 				
 				cout << "\nDite el ID del Empleado: "; cin >> empleado;
@@ -129,43 +183,11 @@ void menu_factura() {
 				cout << "\n\n";
 				string producto, id, cantidad;
 				cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
-				Producto p1 = Producto();
-				p1.ver();
-				cout << endl;
-				cout << "ingresa ID producto: "; cin >> producto;
-				id = p1.buscarProducto(producto);
-				cout << "ingrese cantidad: "; cin >> cantidad;
-				total = p1.buscarPrecioProducto(producto,cantidad);
 				
-				if (total == "NULL") {
-					system("cls");
-					cout << "ERROR\n";
-					Sleep(2000);
-					cout << "Estableciendo nueva conexion.. \n\n";
-					Sleep(2000);
-					system("pause");
-					fflush(stdin);
-					menu_Principal();
-				}
-				else {
-					Venta v1 = Venta();
-					string No_factura = v1.factura();
-					
-					crear_factura venta = crear_factura();
-					venta.insertar_Venta_Detalle(No_factura,producto, cantidad, total);
-					
-				}
-				cout << "\nDesea agregar otra compra (s/n): "; cin >> res;
-				switch (res) {
-				case 's':
-				case 'S':// m.insertar_Venta_Detalle(); break;
-				case 'n':
-				case 'N': system("cls"); menu_factura();
-				}
-				menu_factura();
+				agregar_al_carrito();
+				//menu_factura();
 			}
-			 } 
-		break;
+		}break;
 		case 5: menu_Principal(); break;
 		default: cout << "Error....\n\n"; system("pause"); menu_factura();
 		}
@@ -367,7 +389,7 @@ void menu_Empleados(){
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 		} break;
 		case 2: {
 			system("cls");
@@ -384,7 +406,7 @@ void menu_Empleados(){
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 
 		} break;
 		case 3: {
@@ -393,7 +415,7 @@ void menu_Empleados(){
 			E.leer();
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 
 		} break;
 		case 4: {
@@ -438,7 +460,7 @@ void menu_Empleados(){
 			system("pause");
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 
 
 		}break;
@@ -450,6 +472,7 @@ void menu_Empleados(){
 
 }
 void agregar_un_cliente(string nit) {
+	system("cls");
 	cin.ignore();
 	cout << endl << "INGRESE EL NOMBRE DEL CLIENTE: ";
 	getline(cin, nombre);
@@ -549,7 +572,7 @@ void menu_Clientes(){
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 		}
 
 			  break;
@@ -569,7 +592,7 @@ void menu_Clientes(){
 
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 
 		}break;
 		case 3: {
@@ -578,7 +601,7 @@ void menu_Clientes(){
 			C.leer();
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; default:system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 
 		} break;
 		case 4: {
@@ -627,7 +650,7 @@ void menu_Clientes(){
 			system("pause");
 			cout << endl << endl << "*si desea regresar al menu principal ingrese: 1, para salir ingrese 2*" << endl;
 			cin >> op1;
-		switch (op1) { case 1: system("cls"); main(); break; system("exit"); }
+		switch (op1) { case 1: system("cls"); menu_Principal(); break; default: system("exit"); }
 
 
 		}break;
