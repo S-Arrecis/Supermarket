@@ -25,6 +25,7 @@ void menu_Proveedores();
 void menu_factura();
 void agregar_un_cliente(string);
 void agregar_al_carrito();
+void carritoactualizar(string);
 
 ConexionBD conec = ConexionBD();
 
@@ -44,6 +45,61 @@ int main(){
    return 0;
 }
 
+void carritoactualizar(string factura) {
+	string No_factura;
+	system("cls");
+	string producto, cantidad, id,actualizar;
+	id = "NULL";
+	char res;
+	string total = "NULL";
+	crear_factura c1 = crear_factura();
+	c1.editarVentaDetalle(factura);
+
+	cout << "Digite el ID del item que desea actualizar: "; cin >> actualizar;
+	Producto p1 = Producto();
+	p1.ver();
+	cout << endl;
+	cout << "ingresa ID producto: "; cin >> producto;
+	id = p1.buscarProducto(producto);
+	cout << "ingrese cantidad: "; cin >> cantidad;
+	total = p1.buscarPrecioProducto(producto, cantidad);
+
+	if (total == "NULL") {
+		system("cls");
+		cout << "ERROR\n";
+		Sleep(2000);
+		cout << "Estableciendo nueva conexion.. \n\n";
+		Sleep(2000);
+		system("pause");
+		fflush(stdin);
+		menu_Principal();
+	}
+	else {
+		Venta v1 = Venta();
+		No_factura = v1.factura();
+
+		crear_factura venta = crear_factura();
+		venta.actualizar_Venta_Detalle(actualizar, producto, cantidad, total);
+	}
+
+	cout << "\nDesea editar otra compra (s/n): "; cin >> res;
+	switch (res) {
+	case 's':
+	case 'S': carritoactualizar(factura); break;
+	case 'n':
+	case 'N': system("cls"); break;
+	}
+	system("cls");
+	crear_factura m = crear_factura();
+	//m.consultarVenta1(factura);
+//	m.consultarVentaDetalle();
+	m.mostrarCompra(factura);
+	m.mostrarVentaDetalle(factura);
+	cout << "\n\n\n";
+	system("pause");
+	menu_factura();
+
+}
 void agregar_al_carrito() {
 	string No_factura;
 	system("cls");
@@ -111,7 +167,38 @@ void menu_factura() {
 		cout << "Digite un opcion: "; cin >> opcion_sub_menu;
 
 		switch (opcion_sub_menu){
-		case 1:  break;
+		case 1: {
+			system("cls");
+			Cliente C1 = Cliente();
+			string id;
+			id = "NULL";
+			string nit, empleado,factura;
+			system("cls");
+			cout << "Digite el numero factura que desea actuliazar: "; cin >> factura;
+
+			cout << "\t\t.:EDTITAR FACTURA:.\n\n";
+			cout << "\t....Editando Cliente.....\n\n";
+			cout << "Digite el Nit del nuevo cliente: "; cin >> nit;
+
+			id = C1.buscarCliente(nit);
+			if (id == "NULL") {
+				system("cls");
+				cout << "Cliente con el NIT ( " + nit + ") no esta registrado en el sistema..\n";
+				Sleep(2000);
+				cout << "Comenzando proceso de registro del nuevo cliente con el nit ( " + nit + "). \n\n";
+				Sleep(2000);
+				system("pause");
+				fflush(stdin);
+				agregar_un_cliente(nit);
+			}
+			cout << "\nDite el ID del Empleado: "; cin >> empleado;
+			
+			crear_factura m = crear_factura();
+			m.actualizar_datos(id,empleado,factura);
+			carritoactualizar(factura);
+
+
+		}  break;
 		case 2: {
 			int res;
 			do {

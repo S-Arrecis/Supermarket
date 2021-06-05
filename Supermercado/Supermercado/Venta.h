@@ -118,21 +118,18 @@ public: void insertar() {
           }
           cn.cerrar_conexion();
       }
-      void actualizar() {
+      void actualizar(string id_cliente,string id_empleado,string ID) {
 
           int q_estado;
           ConexionBD cn = ConexionBD();
-          fecha_factura = "now()";
-          fecha_ingreso = "now()";
           cn.abrir_conexion();
           if (cn.getConectar()) {
 
-              string insert = " UPDATE db_super_mercado.ventas (idcliente='" + id_cliente + "',idempleado='" + id_empleado + "') WHERE(idventas ='" + ID+ "')";
+              string insert = " UPDATE db_super_mercado.ventas set idcliente=('" + id_cliente + "'),idempleado=('" + id_empleado + "') WHERE(idventas ='" + ID+ "')";
               const char* i = insert.c_str();
 
               q_estado = mysql_query(cn.getConectar(), i);
 
-              ///cout << insert << endl;
               system("pause");
               if (!q_estado) {
                   cout << "Ingreso exitoso..." << endl;
@@ -147,6 +144,7 @@ public: void insertar() {
               cout << "Error en la conexión..." << endl;
           }
           cn.cerrar_conexion();
+          system("cls");
       }
 
 

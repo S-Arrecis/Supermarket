@@ -128,6 +128,8 @@ public:
 		cn.cerrar_conexion();
 	}
 
+
+
 	void eliminar() {
 		int q_estado;
 		ConexionBD cn = ConexionBD();
