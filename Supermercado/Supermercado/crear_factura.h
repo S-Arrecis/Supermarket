@@ -8,6 +8,7 @@
 #include "Venta.h"
 #include "venta_Detalle.h"
 #include <fstream>
+#include <iomanip>
 #include"Impresion.h"
 
 
@@ -16,23 +17,23 @@ ofstream imp("factura.txt");
 char resp;
 typedef std::basic_ifstream<TCHAR> tifstream;
 typedef std::basic_string<TCHAR> tstring;
-class crear_factura{
+class crear_factura {
 
-	
-	
-	private:
-		char serie;
-	private:
-		string fecha_factura, fecha_ingreso, cantidad, id, No_factura, nit_cliente, id_empleado, venta, id_producto, SERIE,precio, buscar;
-	private: float precio_unitario;
 
-		  // char* No_Factura;
-	public: crear_factura() {
 
-	}
-		  
+private:
+	char serie;
+private:
+	string fecha_factura, fecha_ingreso, cantidad, id, No_factura, nit_cliente, id_empleado, venta, id_producto, SERIE, precio, buscar;
+private: float precio_unitario;
 
-public: void ingresar_datos(string id_cliente,string id_empleado) {
+	   // char* No_Factura;
+public: crear_factura() {
+
+}
+
+
+public: void ingresar_datos(string id_cliente, string id_empleado) {
 	system("cls");
 	/*
 	cout << "\n\t\t.:DATOS DE FACTURACION:. \n\n";
@@ -45,14 +46,14 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 	cout << "\nDite el ID del Empleado: "; cin >> id_empleado;*/
 
 	Venta v1 = Venta();
-	No_factura= v1.factura();
+	No_factura = v1.factura();
 	int aux = atoi(No_factura.c_str());
 	aux += 1;
 
 	No_factura = to_string(aux);
-	 v1 = Venta(No_factura,"A", fecha_factura, id_cliente, id_empleado, fecha_ingreso);
+	v1 = Venta(No_factura, "A", fecha_factura, id_cliente, id_empleado, fecha_ingreso);
 	v1.insertar();
-	id=v1.ver();
+	id = v1.ver();
 	//insertar_Venta_Detalle();
 	/*
 	cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
@@ -65,35 +66,35 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 	cout << "\n\n";
 	system("pause");*/
 }
-	  void insertar_Venta_Detalle(string id_factura ,string id_producto,string cantidad,string precio) {
+	  void insertar_Venta_Detalle(string id_factura, string id_producto, string cantidad, string precio) {
 
 		  //cout << "\n\t\t.:VENTA DETALLE:.\n" << endl;
 		  //cout << "ingresa ID producto: "; cin >> id_producto;
 		  //cout << "ingrese cantidad: "; cin >> cantidad;
 		  //cout << "digite precio: "; cin >> precio;
-		  
-		
+
+
 		  venta_Detalle v2 = venta_Detalle(id_factura, id_producto, cantidad, precio);
 		  v2.insertar();
 		  cout << "\n\n";
 		  system("pause");
-	 }
-	
+	  }
+
 	  void consultarVenta1(string buscar) {
-		  cout << "\t\t\t\t\thola: "<<buscar;
+		  cout << "\t\t\t\t\thola: " << buscar;
 		  int q_estado;
 		  ConexionBD cn = ConexionBD();
 		  MYSQL_ROW fila;
 		  MYSQL_RES* resultado;
-		  
+
 		  cn.abrir_conexion();
 		  if (cn.getConectar()) {
 
-			  string consulta = "select ventas.idventas,ventas.nofactura,ventas.serie,ventas.fechafactura,clientes.nombres,empleados.nombres,ventas.fecha_ingreso FROM db_super_mercado.ventas INNER JOIN db_super_mercado.clientes on ventas.idcliente = clientes.idCliente INNER JOIN db_super_mercado.empleados  on ventas.idempleado = empleados.idEmpleado  where  ventas.idventas = ('" +buscar+ "')";
-				 
+			  string consulta = "select ventas.idventas,ventas.nofactura,ventas.serie,ventas.fechafactura,clientes.nombres,empleados.nombres,ventas.fecha_ingreso FROM db_super_mercado.ventas INNER JOIN db_super_mercado.clientes on ventas.idcliente = clientes.idCliente INNER JOIN db_super_mercado.empleados  on ventas.idempleado = empleados.idEmpleado  where  ventas.idventas = ('" + buscar + "')";
+
 			  const char* c = consulta.c_str();
 			  q_estado = mysql_query(cn.getConectar(), c);
-				 // cout << "------------------------------Ventas------------------------------\n" << endl;
+			  // cout << "------------------------------Ventas------------------------------\n" << endl;
 
 			  if (!q_estado) {
 				  resultado = mysql_store_result(cn.getConectar());
@@ -111,7 +112,7 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 					  imp << " Cliente: " << fila[4] << "                           Empleado: " << fila[5] << endl << endl;
 					  imp << "***********************************************************" << endl;
 					  imp << " Cantidad             Descripcion                   Total " << endl << endl;
-				
+
 				  }
 			  }
 			  else {
@@ -173,7 +174,7 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 
 		  int q_estado;
 		  ConexionBD cn = ConexionBD();
-		  MYSQL_ROW fila=0;
+		  MYSQL_ROW fila = 0;
 		  MYSQL_RES* resultado;
 		  ///cout << "Digite el numero de factura que desea visualizar: "; cin >> buscar;
 		  cn.abrir_conexion();
@@ -216,8 +217,15 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 
 
 
+	  
+	 
+	  //aux += 1;
+
+	  
 
 	  void consultarVentaDetalle() {
+		  float suma=0;
+		  string totalventa, sub_total;
 		  //cout << "\n\n\n";
 		  int q_estado;
 		  ConexionBD cn = ConexionBD();
@@ -237,17 +245,26 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 					  //cout << fila[0] << ", " << fila[1] << ", " << fila[2] << ", " << fila[3] << ", " << fila[4]  << endl;
 
 					  cout <<" "<<fila[3]<< "                     " << fila[2]<< "                     " << fila[4]<< endl;
-
+					  
+					  sub_total = fila[4];
+					 // suma += atoi(sub_total.c_str());
+					  suma += stof(sub_total);
+					  suma *= 100;
+					  suma=round(suma);
+					  suma /= 100;
+					  totalventa = to_string(suma);
 					  imp << " " << fila[3] << "                         " << fila[2] << "                               " << fila[4] << endl;
 
 				  }
-				
-																
+				  cout << "\n\n";
+				  cout << "**************** TOTAL A PAGAR: " <<totalventa<<"  ******************" << endl;
+				  
 				  cout << endl << endl << endl << endl;
 				  cout << "                   Gracias por tu compra					" << endl;
 				  cout << "                       Vuelve Pronto						" << endl<<endl;
 				  cout << "**********************************************************" << endl;
-
+				  imp << "\n\n";
+				  imp << "**************** TOTAL A PAGAR: "  << totalventa << "  ******************" << endl;
 				  imp << endl << endl << endl << endl;
 				  imp << "                      Gracias por tu compra					" << endl;
 				  imp << "                              Vuelve Pronto						" << endl << endl;
@@ -284,6 +301,8 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 
 	  void mostrarVentaDetalle(string buscar) {
 		  //cout << "\n\n\n";
+		  float suma = 0;
+		  string totalventa, sub_total;
 		  int q_estado;
 		  ConexionBD cn = ConexionBD();
 		  MYSQL_ROW fila;
@@ -303,16 +322,24 @@ public: void ingresar_datos(string id_cliente,string id_empleado) {
 
 					  cout << " " << fila[3] << "                     " << fila[2] << "                     " << fila[4] << endl;
 
+					  sub_total = fila[4];
+					  //suma += atoi(sub_total.c_str());
+
+					  suma += stof(sub_total);
+					  					  
+					  totalventa = to_string(suma);
+
 					  imp << " " << fila[3] << "                         " << fila[2] << "                               " << fila[4] << endl;
 
 				  }
-
-
+				  cout << "\n\n";
+				  cout << "**************** TOTAL A PAGAR: " <<totalventa << "  ******************" << endl;
 				  cout << endl << endl << endl << endl;
 				  cout << "                   Gracias por tu compra					" << endl;
 				  cout << "                       Vuelve Pronto						" << endl << endl;
 				  cout << "**********************************************************" << endl;
-
+				  imp << "\n\n";
+				  imp << "**************** TOTAL A PAGAR: " << totalventa << "  ******************" << endl;
 				  imp << endl << endl << endl << endl;
 				  imp << "                      Gracias por tu compra					" << endl;
 				  imp << "                              Vuelve Pronto						" << endl << endl;
